@@ -33,12 +33,12 @@ export const STATIC_ROOMS = [
 ]
 
 export const GALLERY_ITEMS = [
-  { id: 1, label: 'Morning mist', tone: 'linear-gradient(145deg,#5B0E14,#1C1412 70%)' },
-  { id: 2, label: 'Backwater edge', tone: 'linear-gradient(160deg,#3d1a1c,#F1E19455 90%)' },
-  { id: 3, label: 'A-frame porch', tone: 'linear-gradient(120deg,#2a0a0e,#8a6a2a 85%)' },
-  { id: 4, label: 'River light', tone: 'linear-gradient(200deg,#1C1412,#5B0E14 40%,#F1E19466)' },
-  { id: 5, label: 'Evening table', tone: 'linear-gradient(135deg,#5B0E14 20%,#4a3820)' },
-  { id: 6, label: 'Path to water', tone: 'linear-gradient(170deg,#241010,#F1E19444)' },
+  { id: 1, label: 'Morning mist', tone: '#5B0E14' },
+  { id: 2, label: 'Backwater edge', tone: '#1C1412' },
+  { id: 3, label: 'A-frame porch', tone: '#5B0E14' },
+  { id: 4, label: 'River light', tone: '#1C1412' },
+  { id: 5, label: 'Evening table', tone: '#5B0E14' },
+  { id: 6, label: 'Path to water', tone: '#1C1412' },
 ]
 
 export const REVIEWS = [

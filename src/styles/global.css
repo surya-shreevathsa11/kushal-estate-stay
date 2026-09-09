@@ -28,10 +28,7 @@ body {
   font-size: 1.0625rem;
   line-height: 1.65;
   color: var(--color-ink);
-  background:
-    radial-gradient(120% 80% at 10% -10%, color-mix(in srgb, var(--color-sand) 55%, transparent), transparent 55%),
-    linear-gradient(180deg, var(--color-mist) 0%, var(--color-sand) 38%, var(--color-wash) 100%);
-  background-attachment: fixed;
+  background: var(--color-sand);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -118,7 +115,7 @@ ul {
 .rule {
   width: 3.5rem;
   height: 1px;
-  background: color-mix(in srgb, var(--color-burgundy) 70%, transparent);
+  background: var(--color-burgundy);
 }
 
 .display {

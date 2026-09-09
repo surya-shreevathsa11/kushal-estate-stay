@@ -22,7 +22,7 @@ export default function Gallery() {
       <div className="gallery-track" aria-label="Gallery preview">
         {loop.map((item, index) => (
           <figure className="gallery-frame" key={`${item.id}-${index}`}>
-            <div className="swatch" style={{ backgroundImage: item.tone }} />
+            <div className="swatch" style={{ backgroundColor: item.tone }} />
             <figcaption>{item.label}</figcaption>
           </figure>
         ))}

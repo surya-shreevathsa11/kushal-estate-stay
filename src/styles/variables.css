@@ -1,12 +1,10 @@
 :root {
-  /* Brand */
+  /* Brand — flat solids only */
   --color-sand: #f1e194;
   --color-burgundy: #5b0e14;
   --color-ink: #1c1412;
-  --color-wash: color-mix(in srgb, var(--color-sand) 92%, var(--color-burgundy) 8%);
-  --color-mist: color-mix(in srgb, var(--color-sand) 78%, #ffffff 22%);
-  --color-burgundy-soft: color-mix(in srgb, var(--color-burgundy) 82%, #ffffff 18%);
-  --color-ink-muted: color-mix(in srgb, var(--color-ink) 62%, var(--color-sand) 38%);
+  --color-ink-muted: #5a4a46;
+  --color-burgundy-soft: #7a242c;
 
   --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --font-body: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
@@ -25,7 +23,7 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
 
-  --shadow-soft: 0 18px 50px color-mix(in srgb, var(--color-ink) 18%, transparent);
+  --shadow-soft: 0 12px 32px rgba(28, 20, 18, 0.12);
 
   color-scheme: light;
 }

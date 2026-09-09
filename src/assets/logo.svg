@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Kushal Estate Stay">
+  <rect width="64" height="64" rx="6" fill="#5B0E14"/>
+  <path d="M12 44V20h6.2l7.4 14.2L33 20H39v24h-5.2V30.4L27.4 44h-4.8l-6.4-13.6V44H12Z" fill="#F1E194"/>
+  <path d="M44 44V20h5.2v19.2H56V44H44Z" fill="#F1E194"/>
+  <circle cx="48.5" cy="14.5" r="2.2" fill="#F1E194"/>
+</svg>

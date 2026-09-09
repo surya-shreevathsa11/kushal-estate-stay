@@ -1,0 +1,103 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 2.85rem;
+  padding: 0.7rem 1.35rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition:
+    transform 0.35s var(--ease-out),
+    background 0.35s var(--ease-out),
+    color 0.35s var(--ease-out),
+    box-shadow 0.35s var(--ease-out);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--color-burgundy);
+  color: var(--color-sand);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--color-burgundy) 28%, transparent);
+}
+
+.btn-primary:hover {
+  background: var(--color-burgundy-soft);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-sand);
+  border: 1px solid color-mix(in srgb, var(--color-sand) 55%, transparent);
+}
+
+.btn-ghost:hover {
+  background: color-mix(in srgb, var(--color-sand) 12%, transparent);
+}
+
+.btn-ink {
+  background: var(--color-ink);
+  color: var(--color-sand);
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-burgundy);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid color-mix(in srgb, var(--color-burgundy) 22%, transparent);
+  background: color-mix(in srgb, #fff 55%, var(--color-sand) 45%);
+  border-radius: 0.35rem;
+  padding: 0.85rem 1rem;
+  transition: border-color 0.25s var(--ease-soft);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--color-burgundy);
+}
+
+.field textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.logo-mark {
+  width: 2.35rem;
+  height: 2.35rem;
+  flex-shrink: 0;
+}
+
+.logo-word {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.logo-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+}

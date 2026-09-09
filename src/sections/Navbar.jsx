@@ -10,6 +10,7 @@ const LINKS = [
   { href: '#stay', label: 'Stay' },
   { href: '#gallery', label: 'Gallery' },
   { href: '#reviews', label: 'Reviews' },
+  { href: '#location', label: 'Location' },
 ]
 
 export default function Navbar() {

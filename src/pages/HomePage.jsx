@@ -5,6 +5,7 @@ import About from '../sections/About'
 import Stay from '../sections/Stay'
 import Gallery from '../sections/Gallery'
 import Reviews from '../sections/Reviews'
+import Location from '../sections/Location'
 import Footer from '../sections/Footer'
 import { useSmoothScroll } from '../hooks/useSmoothScroll'
 
@@ -37,6 +38,7 @@ export default function HomePage() {
         <Stay />
         <Gallery />
         <Reviews />
+        <Location />
       </main>
       <Footer />
     </>

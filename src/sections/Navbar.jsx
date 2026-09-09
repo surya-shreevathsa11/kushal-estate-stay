@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react'
 import { Button } from '../components/Button'
 import { Logo } from '../components/Logo'
+import { SignInModal } from '../components/SignInModal'
 import { useCart } from '../hooks/useCart'
+import { useGuestAuth } from '../hooks/useGuestAuth'
 
 const LINKS = [
   { href: '#about', label: 'About' },
   { href: '#stay', label: 'Stay' },
   { href: '#gallery', label: 'Gallery' },
   { href: '#reviews', label: 'Reviews' },
-  { href: '#booking', label: 'Book' },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-  const { count } = useCart()
+  const [signInOpen, setSignInOpen] = useState(false)
+  const { count, refresh } = useCart()
+  const { isSignedIn, signOut } = useGuestAuth()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -29,6 +32,22 @@ export default function Navbar() {
       document.body.style.overflow = ''
     }
   }, [open])
+
+  useEffect(() => {
+    const openSignIn = () => setSignInOpen(true)
+    const onAuth = () => {
+      refresh()
+    }
+    const onCart = () => refresh()
+    window.addEventListener('open-guest-signin', openSignIn)
+    window.addEventListener('guest-auth-changed', onAuth)
+    window.addEventListener('cart-updated', onCart)
+    return () => {
+      window.removeEventListener('open-guest-signin', openSignIn)
+      window.removeEventListener('guest-auth-changed', onAuth)
+      window.removeEventListener('cart-updated', onCart)
+    }
+  }, [refresh])
 
   const close = () => setOpen(false)
 
@@ -46,9 +65,22 @@ export default function Navbar() {
               </a>
             ))}
             <a href="#cart">Cart{count ? ` (${count})` : ''}</a>
+            {isSignedIn ? (
+              <button type="button" className="nav-text-btn" onClick={() => signOut()}>
+                Sign out
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="nav-text-btn"
+                onClick={() => setSignInOpen(true)}
+              >
+                Sign in
+              </button>
+            )}
           </nav>
-          <Button as="a" href="#booking" className="nav-cta" variant="primary">
-            Enquire
+          <Button as="a" href="#stay" className="nav-cta" variant="primary">
+            Book
           </Button>
           <button
             type="button"
@@ -75,10 +107,32 @@ export default function Navbar() {
         <a href="#cart" onClick={close}>
           Cart{count ? ` (${count})` : ''}
         </a>
-        <Button as="a" href="#booking" variant="ghost" onClick={close}>
-          Enquire
+        {isSignedIn ? (
+          <button
+            type="button"
+            onClick={() => {
+              signOut()
+              close()
+            }}
+          >
+            Sign out
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => {
+              setSignInOpen(true)
+              close()
+            }}
+          >
+            Sign in
+          </button>
+        )}
+        <Button as="a" href="#stay" variant="ghost" onClick={close}>
+          Book
         </Button>
       </div>
+      <SignInModal open={signInOpen} onClose={() => setSignInOpen(false)} />
     </>
   )
 }

@@ -1,2 +1,0 @@
-# Drop the muted looping drone hero here as `drone-hero.mp4`.
-# The site falls back to an atmospheric gradient until this file exists.

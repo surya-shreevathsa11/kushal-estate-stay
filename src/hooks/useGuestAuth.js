@@ -37,6 +37,7 @@ export function useGuestAuth() {
       if (!next) throw new Error('No session token returned.')
       setGuestToken(next)
       setToken(next)
+      window.dispatchEvent(new Event('guest-auth-changed'))
       return true
     } catch (err) {
       setError(err?.message || 'Could not verify PIN.')
@@ -55,6 +56,7 @@ export function useGuestAuth() {
       if (!next) throw new Error('No session token returned.')
       setGuestToken(next)
       setToken(next)
+      window.dispatchEvent(new Event('guest-auth-changed'))
       return true
     } catch (err) {
       setError(err?.message || 'Google sign-in failed.')
@@ -67,11 +69,13 @@ export function useGuestAuth() {
   const signOut = useCallback(() => {
     clearGuestToken()
     setToken(null)
+    window.dispatchEvent(new Event('guest-auth-changed'))
   }, [])
 
   return {
     token,
     isSignedIn: Boolean(token),
+    signedIn: Boolean(token),
     busy,
     error,
     requestPin,

@@ -62,7 +62,7 @@ export default function Hero() {
             rooms, and quiet water light.
           </p>
           <div className="hero-actions">
-            <Button as="a" href="#booking" variant="primary">
+            <Button as="a" href="#stay" variant="primary">
               Check availability
             </Button>
             <Button as="a" href="#about" variant="ghost">

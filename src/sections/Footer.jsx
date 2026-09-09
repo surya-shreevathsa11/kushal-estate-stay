@@ -33,13 +33,13 @@ export default function Footer() {
               <a href="#about">About</a>
             </li>
             <li>
-              <a href="#stay">Stay</a>
+              <a href="#stay">Stay / Book</a>
             </li>
             <li>
               <a href="#gallery">Gallery</a>
             </li>
             <li>
-              <a href="#booking">Book</a>
+              <a href="#reviews">Reviews</a>
             </li>
             <li>
               <a href="#my-bookings">My bookings</a>

@@ -1,35 +1,111 @@
-/** Static room catalog until Vara rooms API is live for this property. */
+/**
+ * Static room catalog until Vara rooms API is live.
+ * Each entry is one bookable unit (matches inventory: 3 A-frames, 1 dorm, 4 rooms).
+ */
 export const STATIC_ROOMS = [
   {
-    id: 'a-frame',
+    id: 'a-frame-1',
+    roomId: 'kushal-a-frame-1',
     sku: 'kushal-a-frame',
-    name: 'A-frame cabin',
-    count: 3,
+    type: 'A-frame cabin',
+    name: 'A-frame cabin 1',
     capacityMin: 1,
     capacityMax: 4,
+    capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
     summary:
-      'Three peaked A-frames set toward the water — each a private cabin for up to four.',
+      'Peaked A-frame cabin toward the water — private stay for up to four guests.',
   },
   {
-    id: 'dorm',
+    id: 'a-frame-2',
+    roomId: 'kushal-a-frame-2',
+    sku: 'kushal-a-frame',
+    type: 'A-frame cabin',
+    name: 'A-frame cabin 2',
+    capacityMin: 1,
+    capacityMax: 4,
+    capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
+    summary:
+      'Peaked A-frame cabin toward the water — private stay for up to four guests.',
+  },
+  {
+    id: 'a-frame-3',
+    roomId: 'kushal-a-frame-3',
+    sku: 'kushal-a-frame',
+    type: 'A-frame cabin',
+    name: 'A-frame cabin 3',
+    capacityMin: 1,
+    capacityMax: 4,
+    capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
+    summary:
+      'Peaked A-frame cabin toward the water — private stay for up to four guests.',
+  },
+  {
+    id: 'dorm-1',
+    roomId: 'kushal-dorm-1',
     sku: 'kushal-dorm',
+    type: 'Dormitory',
     name: 'Dormitory',
-    count: 1,
     capacityMin: 8,
     capacityMax: 16,
+    capacity: { minAdults: 8, maxAdults: 16, maxChildren: 0, maxTotal: 16 },
     summary:
-      'One shared dorm for groups — from eight guests at minimum to sixteen at full house.',
+      'Shared dorm for groups — book from eight guests at minimum, up to sixteen at full house.',
   },
   {
-    id: 'individual',
+    id: 'room-1',
+    roomId: 'kushal-room-1',
     sku: 'kushal-room',
-    name: 'Individual room',
-    count: 4,
+    type: 'Individual room',
+    name: 'Individual room 1',
     capacityMin: 1,
     capacityMax: 4,
+    capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
     summary:
-      'Four quiet rooms with space for up to four guests each — simple, restful, close to the river.',
+      'Quiet individual room for up to four — simple, restful, close to the river.',
   },
+  {
+    id: 'room-2',
+    roomId: 'kushal-room-2',
+    sku: 'kushal-room',
+    type: 'Individual room',
+    name: 'Individual room 2',
+    capacityMin: 1,
+    capacityMax: 4,
+    capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
+    summary:
+      'Quiet individual room for up to four — simple, restful, close to the river.',
+  },
+  {
+    id: 'room-3',
+    roomId: 'kushal-room-3',
+    sku: 'kushal-room',
+    type: 'Individual room',
+    name: 'Individual room 3',
+    capacityMin: 1,
+    capacityMax: 4,
+    capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
+    summary:
+      'Quiet individual room for up to four — simple, restful, close to the river.',
+  },
+  {
+    id: 'room-4',
+    roomId: 'kushal-room-4',
+    sku: 'kushal-room',
+    type: 'Individual room',
+    name: 'Individual room 4',
+    capacityMin: 1,
+    capacityMax: 4,
+    capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
+    summary:
+      'Quiet individual room for up to four — simple, restful, close to the river.',
+  },
+]
+
+/** Inventory summary for marketing copy (not the bookable list). */
+export const ROOM_INVENTORY_SUMMARY = [
+  { label: 'A-frame cabins', units: 3, capacity: 'Up to 4 guests each' },
+  { label: 'Dormitory', units: 1, capacity: '8–16 guests' },
+  { label: 'Individual rooms', units: 4, capacity: 'Up to 4 guests each' },
 ]
 
 export const GALLERY_ITEMS = [
@@ -56,7 +132,7 @@ export const REVIEWS = [
   },
   {
     id: 3,
-    quote: ' Quiet rooms, kind hosts, and a landscape that asks you to slow down. We will return.',
+    quote: 'Quiet rooms, kind hosts, and a landscape that asks you to slow down. We will return.',
     name: 'Meera S.',
     detail: 'Family · Individual room',
   },

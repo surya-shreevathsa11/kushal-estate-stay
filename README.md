@@ -32,7 +32,16 @@ Replace `src/assets/logo.svg` and gallery placeholders when final brand assets a
 
 Static catalog: `src/utils/catalog.js`.
 
-## Backend (Sathwik)
+## Booking flow
+
+Same pattern as BB Estate Stay:
+
+1. **Stay** section (`#stay`) lists room types with **Check availability**
+2. Guest **Sign in** (email PIN) when needed
+3. Modal: dates + guests → quote check → **add to cart**
+4. Checkout continues on `#cart` (Razorpay when Sathwik wires payments)
+
+There is no separate homepage “booking form” section — booking lives on each stay type.
 
 This repo is **frontend only**. Booking, auth, cart, and payments talk to the **Vara** API — same contract as other Vara property sites.
 
@@ -58,11 +67,17 @@ See `.env.example`:
 
 Client: `src/services/api.js` + `src/services/varaGuestAuth.ts`.
 
-### Suggested Vara room SKUs
+### Suggested Vara room SKUs / units
 
-- `kushal-a-frame` (×3)
-- `kushal-dorm` (×1)
-- `kushal-room` (×4)
+Create **8 bookable rooms** (not 3 types only):
+
+| Unit | Suggested `roomId` | Capacity |
+|------|--------------------|----------|
+| A-frame 1–3 | `kushal-a-frame-1` … `-3` | max 4 |
+| Dormitory | `kushal-dorm-1` | min 8 · max 16 |
+| Individual 1–4 | `kushal-room-1` … `-4` | max 4 |
+
+Static fallback list: `src/utils/catalog.js` (`STATIC_ROOMS`).
 
 Until the property is live, rooms fall back to the static catalog and the booking form shows a graceful offline message.
 

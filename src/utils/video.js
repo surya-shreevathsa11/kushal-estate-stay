@@ -1,6 +1,6 @@
 export const HERO_VIDEO = {
   src: '/drone-hero.mp4',
-  poster: '/og-poster.svg',
+  poster: '/drone-hero-poster.jpg',
 }
 
 export function prefersReducedMotion() {

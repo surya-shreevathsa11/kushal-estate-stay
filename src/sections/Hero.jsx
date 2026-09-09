@@ -58,7 +58,7 @@ export default function Hero() {
           </p>
           <h1 className="hero-brand">Kushal Estate Stay</h1>
           <p className="hero-line">
-            A place to linger on the backwaters of the Harangi river — cabins,
+            A place to linger on the backwaters of the Harangi river - cabins,
             rooms, and quiet water light.
           </p>
           <div className="hero-actions">

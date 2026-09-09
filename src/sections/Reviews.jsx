@@ -13,7 +13,7 @@ export default function Reviews() {
           <div className="rule" />
           <h2>Words from recent stays.</h2>
           <p className="lede">
-            Placeholder guest notes — replace with real reviews when you have
+            Placeholder guest notes - replace with real reviews when you have
             them.
           </p>
         </div>

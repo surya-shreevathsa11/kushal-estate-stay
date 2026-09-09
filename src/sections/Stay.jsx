@@ -22,7 +22,7 @@ function formatCapacity(room) {
     room.maxGuests ??
     room.capacity
   if (min != null && max != null && Number(min) !== Number(max)) {
-    return `${min}–${max} guests`
+    return `${min}-${max} guests`
   }
   if (max != null) return `Up to ${max} guests`
   return 'Capacity TBC'
@@ -359,7 +359,7 @@ export default function Stay() {
           <h2>Choose your room.</h2>
           <p className="lede">
             Eight bookable stays: three A-frame cabins (up to 4), one dormitory
-            (8–16), and four individual rooms (up to 4 each). Pick one, choose
+            (8-16), and four individual rooms (up to 4 each). Pick one, choose
             dates, and add it to your cart.
           </p>
         </div>

@@ -31,7 +31,7 @@ export default function CartPage() {
             <ul>
               {items.map((item, index) => (
                 <li key={item.id || index}>
-                  {item.name || item.roomName || 'Stay item'} —{' '}
+                  {item.name || item.roomName || 'Stay item'} -{' '}
                   {item.checkIn || 'dates TBC'}
                 </li>
               ))}

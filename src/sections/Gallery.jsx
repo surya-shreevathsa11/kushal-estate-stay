@@ -14,7 +14,7 @@ export default function Gallery() {
           <h2>Light on water, wood, and path.</h2>
           <p className="lede">
             Photography will replace these frames. For now, a moving strip of the
-            estate’s colour — sand, burgundy, and river ink.
+            estate’s colour - sand, burgundy, and river ink.
           </p>
         </div>
       </div>

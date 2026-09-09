@@ -18,7 +18,7 @@ export default function About() {
             <h2>We began with the water.</h2>
           </div>
           <p className="lede">
-            Kushal Estate Stay sits on the backwaters of the Harangi — a stretch
+            Kushal Estate Stay sits on the backwaters of the Harangi - a stretch
             of still water, hillside green, and long evenings. Placeholder copy
             for now; the story of the land will be refined with the family.
           </p>

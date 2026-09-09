@@ -13,7 +13,7 @@ export const STATIC_ROOMS = [
     capacityMax: 4,
     capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
     summary:
-      'Peaked A-frame cabin toward the water — private stay for up to four guests.',
+      'Peaked A-frame cabin toward the water - private stay for up to four guests.',
   },
   {
     id: 'a-frame-2',
@@ -25,7 +25,7 @@ export const STATIC_ROOMS = [
     capacityMax: 4,
     capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
     summary:
-      'Peaked A-frame cabin toward the water — private stay for up to four guests.',
+      'Peaked A-frame cabin toward the water - private stay for up to four guests.',
   },
   {
     id: 'a-frame-3',
@@ -37,7 +37,7 @@ export const STATIC_ROOMS = [
     capacityMax: 4,
     capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
     summary:
-      'Peaked A-frame cabin toward the water — private stay for up to four guests.',
+      'Peaked A-frame cabin toward the water - private stay for up to four guests.',
   },
   {
     id: 'dorm-1',
@@ -49,7 +49,7 @@ export const STATIC_ROOMS = [
     capacityMax: 16,
     capacity: { minAdults: 8, maxAdults: 16, maxChildren: 0, maxTotal: 16 },
     summary:
-      'Shared dorm for groups — book from eight guests at minimum, up to sixteen at full house.',
+      'Shared dorm for groups - book from eight guests at minimum, up to sixteen at full house.',
   },
   {
     id: 'room-1',
@@ -61,7 +61,7 @@ export const STATIC_ROOMS = [
     capacityMax: 4,
     capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
     summary:
-      'Quiet individual room for up to four — simple, restful, close to the river.',
+      'Quiet individual room for up to four - simple, restful, close to the river.',
   },
   {
     id: 'room-2',
@@ -73,7 +73,7 @@ export const STATIC_ROOMS = [
     capacityMax: 4,
     capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
     summary:
-      'Quiet individual room for up to four — simple, restful, close to the river.',
+      'Quiet individual room for up to four - simple, restful, close to the river.',
   },
   {
     id: 'room-3',
@@ -85,7 +85,7 @@ export const STATIC_ROOMS = [
     capacityMax: 4,
     capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
     summary:
-      'Quiet individual room for up to four — simple, restful, close to the river.',
+      'Quiet individual room for up to four - simple, restful, close to the river.',
   },
   {
     id: 'room-4',
@@ -97,14 +97,14 @@ export const STATIC_ROOMS = [
     capacityMax: 4,
     capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
     summary:
-      'Quiet individual room for up to four — simple, restful, close to the river.',
+      'Quiet individual room for up to four - simple, restful, close to the river.',
   },
 ]
 
 /** Inventory summary for marketing copy (not the bookable list). */
 export const ROOM_INVENTORY_SUMMARY = [
   { label: 'A-frame cabins', units: 3, capacity: 'Up to 4 guests each' },
-  { label: 'Dormitory', units: 1, capacity: '8–16 guests' },
+  { label: 'Dormitory', units: 1, capacity: '8-16 guests' },
   { label: 'Individual rooms', units: 4, capacity: 'Up to 4 guests each' },
 ]
 
@@ -126,7 +126,7 @@ export const REVIEWS = [
   },
   {
     id: 2,
-    quote: 'The dorm held our whole group without feeling crowded — evenings by the water were the highlight.',
+    quote: 'The dorm held our whole group without feeling crowded - evenings by the water were the highlight.',
     name: 'Vikram & friends',
     detail: 'Group stay · Dorm',
   },

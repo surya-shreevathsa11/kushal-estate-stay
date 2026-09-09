@@ -1,5 +1,5 @@
 /**
- * Vara guest auth API — guest-auth HTTP and Bearer-backed guest API calls.
+ * Vara guest auth API - guest-auth HTTP and Bearer-backed guest API calls.
  *
  * Endpoints:
  * - POST /api/guest-auth/request-pin

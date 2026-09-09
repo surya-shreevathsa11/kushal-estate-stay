@@ -21,7 +21,7 @@ export function CartProvider({ children }) {
             : []
       setItems(list)
     } catch {
-      // API may be offline until Sathwik wires the property — keep UI usable.
+      // API may be offline until Sathwik wires the property - keep UI usable.
       setItems([])
     }
   }, [])

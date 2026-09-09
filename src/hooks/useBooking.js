@@ -19,7 +19,7 @@ export function useBooking() {
       setStatus('error')
       setMessage(
         offline
-          ? 'Booking API is not live yet. Please email or call to reserve — details in the footer.'
+          ? 'Booking API is not live yet. Please email or call to reserve - details in the footer.'
           : err?.message || 'Could not send your request. Please try again.',
       )
       return false

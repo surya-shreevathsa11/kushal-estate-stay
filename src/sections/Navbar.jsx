@@ -55,7 +55,7 @@ export default function Navbar() {
     <>
       <header className={`site-nav${scrolled ? ' is-scrolled' : ''}`}>
         <div className="nav-inner">
-          <a href="#top" aria-label="Kushal Estate Stay — home" onClick={close}>
+          <a href="#top" aria-label="Kushal Estate Stay - home" onClick={close}>
             <Logo />
           </a>
           <nav className="nav-links" aria-label="Primary">

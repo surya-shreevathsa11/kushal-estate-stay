@@ -1,6 +1,6 @@
 # Kushal Estate Stay
 
-Marketing and booking frontend for **Kushal Estate Stay** — a homestay on the backwaters of the Harangi river (Karnataka).
+Marketing and booking frontend for **Kushal Estate Stay** - a homestay on the backwaters of the Harangi river (Karnataka).
 
 ## Stack
 
@@ -41,9 +41,9 @@ Same pattern as BB Estate Stay:
 3. Modal: dates + guests → quote check → **add to cart**
 4. Checkout continues on `#cart` (Razorpay when Sathwik wires payments)
 
-There is no separate homepage “booking form” section — booking lives on each stay type.
+There is no separate homepage “booking form” section - booking lives on each stay type.
 
-This repo is **frontend only**. Booking, auth, cart, and payments talk to the **Vara** API — same contract as other Vara property sites.
+This repo is **frontend only**. Booking, auth, cart, and payments talk to the **Vara** API - same contract as other Vara property sites.
 
 ### Env
 
@@ -73,9 +73,9 @@ Create **8 bookable rooms** (not 3 types only):
 
 | Unit | Suggested `roomId` | Capacity |
 |------|--------------------|----------|
-| A-frame 1–3 | `kushal-a-frame-1` … `-3` | max 4 |
+| A-frame 1-3 | `kushal-a-frame-1` … `-3` | max 4 |
 | Dormitory | `kushal-dorm-1` | min 8 · max 16 |
-| Individual 1–4 | `kushal-room-1` … `-4` | max 4 |
+| Individual 1-4 | `kushal-room-1` … `-4` | max 4 |
 
 Static fallback list: `src/utils/catalog.js` (`STATIC_ROOMS`).
 

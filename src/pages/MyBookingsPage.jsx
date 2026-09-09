@@ -54,7 +54,7 @@ export default function MyBookingsPage() {
             <ul>
               {bookings.map((b, i) => (
                 <li key={b.id || i}>
-                  {b.status || 'Booking'} · {b.checkIn || '—'} → {b.checkOut || '—'}
+                  {b.status || 'Booking'} · {b.checkIn || '-'} → {b.checkOut || '-'}
                 </li>
               ))}
             </ul>

@@ -1,4 +1,4 @@
-/* ——— Navbar ——— */
+/* --- Navbar --- */
 .site-nav {
   position: fixed;
   inset: 0 0 auto;
@@ -129,7 +129,7 @@
   }
 }
 
-/* ——— Hero ——— */
+/* --- Hero --- */
 .hero {
   position: relative;
   min-height: 100svh;
@@ -202,7 +202,7 @@
   opacity: 0.75;
 }
 
-/* ——— About ——— */
+/* --- About --- */
 .about {
   padding: var(--section-pad) 0;
   background: var(--color-sand);
@@ -260,7 +260,7 @@
   color: var(--color-burgundy);
 }
 
-/* ——— Stay ——— */
+/* --- Stay --- */
 .stay {
   padding: var(--section-pad) 0;
   background: var(--color-burgundy);
@@ -395,7 +395,7 @@
   color: var(--color-burgundy);
 }
 
-/* ——— Modals (booking + sign-in) ——— */
+/* --- Modals (booking + sign-in) --- */
 .modal-root {
   position: fixed;
   inset: 0;
@@ -516,7 +516,7 @@
   color: var(--color-sand);
 }
 
-/* ——— Gallery ——— */
+/* --- Gallery --- */
 .gallery {
   padding: var(--section-pad) 0;
   overflow: hidden;
@@ -588,7 +588,7 @@
   }
 }
 
-/* ——— Reviews ——— */
+/* --- Reviews --- */
 .reviews {
   padding: var(--section-pad) 0;
   background: var(--color-sand);
@@ -632,7 +632,7 @@
   margin-bottom: 0.15rem;
 }
 
-/* ——— Booking ——— */
+/* --- Booking --- */
 .booking {
   padding: var(--section-pad) 0;
   background: var(--color-sand);
@@ -693,7 +693,7 @@
   color: var(--color-sand);
 }
 
-/* ——— Footer / shells ——— */
+/* --- Footer / shells --- */
 .site-footer {
   padding: 4rem 0 2.5rem;
   background: var(--color-ink);

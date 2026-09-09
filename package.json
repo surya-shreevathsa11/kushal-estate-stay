@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Kushal Estate Stay — homestay on the Harangi river backwaters",
+  "description": "Kushal Estate Stay - homestay on the Harangi river backwaters",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

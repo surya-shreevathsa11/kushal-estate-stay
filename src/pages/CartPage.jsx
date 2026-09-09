@@ -22,8 +22,8 @@ export default function CartPage() {
         <div className="empty-state">
           {!isSignedIn ? (
             <p>
-              Sign-in (email PIN / Google) will unlock the guest cart. Guest auth
-              hooks are already in place.
+              Sign in with Google to unlock the guest cart. Guest auth hooks are
+              already in place.
             </p>
           ) : count === 0 ? (
             <p>Your cart is empty. Choose a stay from the home page when booking opens.</p>

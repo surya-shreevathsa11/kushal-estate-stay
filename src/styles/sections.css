@@ -43,9 +43,9 @@
 }
 
 .nav-links a {
-  font-size: 0.86rem;
+  font-size: 1.05rem;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-decoration: none;
   opacity: 0.92;
 }
@@ -210,19 +210,21 @@
 
 .about-grid {
   display: grid;
-  gap: clamp(2rem, 6vw, 4.5rem);
+  gap: clamp(1.75rem, 4vw, 3rem);
+  align-items: start;
 }
 
 @media (min-width: 900px) {
   .about-grid {
-    grid-template-columns: 1.05fr 0.95fr;
-    align-items: end;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 4.5vw, 3.5rem);
   }
 }
 
 .about-panel {
   position: relative;
-  min-height: 24rem;
+  min-height: clamp(22rem, 42vw, 28rem);
+  width: 100%;
   border-radius: 0.2rem;
   overflow: hidden;
   background: var(--color-burgundy);
@@ -250,6 +252,12 @@
 .about-copy {
   display: grid;
   gap: 1.25rem;
+  align-content: start;
+  padding-block: 0.15rem;
+}
+
+.about-copy .section-head {
+  margin-bottom: 0.35rem;
 }
 
 .about-copy .aphorism {
@@ -273,10 +281,22 @@
 
 .stay .section-head h2 {
   color: var(--color-sand);
+  max-width: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .stay .section-head h2 {
+    white-space: normal;
+  }
 }
 
 .stay .lede {
   color: var(--color-sand);
+  max-width: 36rem;
+  opacity: 0.92;
+  font-weight: 350;
+  letter-spacing: 0.01em;
 }
 
 .stay-loading {
@@ -286,19 +306,35 @@
 
 .stay-grid {
   display: grid;
-  gap: 1.25rem;
+  gap: 1.35rem;
   grid-template-columns: 1fr;
 }
 
 @media (min-width: 700px) {
   .stay-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
   }
 }
 
 @media (min-width: 1100px) {
+  /* 6 tracks so each card spans 2 (= 3 visual columns); last pair can center */
   .stay-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .stay-card {
+    grid-column: span 2;
+  }
+
+  /* Center a leftover pair (rooms 07–08 with eight stays) in the final row */
+  .stay-card:nth-child(3n + 1):nth-last-child(2) {
+    grid-column: 2 / span 2;
+  }
+
+  .stay-card:nth-child(3n + 2):last-child {
+    grid-column: 4 / span 2;
   }
 }
 
@@ -456,9 +492,23 @@
   }
 }
 
-.signin-form,
 .modal-panel .field {
   margin-bottom: 0.85rem;
+}
+
+.signin-google {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.signin-google-btn {
+  min-height: 2.5rem;
+}
+
+.signin-google-btn[hidden] {
+  display: none;
 }
 
 .modal-actions {
@@ -471,7 +521,6 @@
 
 .modal-text-btn,
 .nav-text-btn {
-  font-size: 0.86rem;
   font-weight: 500;
   letter-spacing: 0.04em;
   color: inherit;
@@ -481,10 +530,12 @@
 }
 
 .modal-text-btn {
+  font-size: 0.86rem;
   color: var(--color-burgundy);
 }
 
 .nav-text-btn {
+  font-size: 1.05rem;
   background: none;
   border: none;
   padding: 0;
@@ -591,7 +642,20 @@
 /* --- Reviews --- */
 .reviews {
   padding: var(--section-pad) 0;
-  background: var(--color-sand);
+  background: var(--color-burgundy);
+  color: var(--color-sand);
+}
+
+.reviews .eyebrow {
+  color: var(--color-sand);
+}
+
+.reviews .section-head h2 {
+  color: var(--color-sand);
+}
+
+.reviews .lede {
+  color: var(--color-sand);
 }
 
 .reviews-rail {
@@ -607,7 +671,7 @@
 
 .review-card {
   padding: 1.75rem 1.5rem 1.6rem;
-  border-top: 1px solid var(--color-burgundy);
+  border-top: 1px solid var(--color-sand);
   display: grid;
   gap: 1.5rem;
   min-height: 100%;
@@ -617,19 +681,21 @@
   font-family: var(--font-display);
   font-size: clamp(1.35rem, 2.4vw, 1.7rem);
   line-height: 1.35;
-  color: var(--color-ink);
+  color: var(--color-sand);
 }
 
 .review-meta {
   font-size: 0.85rem;
-  color: var(--color-ink-muted);
+  color: var(--color-sand);
+  opacity: 0.85;
 }
 
 .review-meta strong {
   display: block;
-  color: var(--color-burgundy);
+  color: var(--color-sand);
   font-weight: 600;
   margin-bottom: 0.15rem;
+  opacity: 1;
 }
 
 /* --- Booking --- */

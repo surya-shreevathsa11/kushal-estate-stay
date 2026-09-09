@@ -358,9 +358,9 @@ export default function Stay() {
           <div className="rule" style={{ background: 'var(--color-sand)' }} />
           <h2>Choose your room.</h2>
           <p className="lede">
-            Eight bookable stays: three A-frame cabins (up to 4), one dormitory
-            (8-16), and four individual rooms (up to 4 each). Pick one, choose
-            dates, and add it to your cart.
+            Cabins toward the water, quiet rooms for slower mornings, and a dorm
+            when the whole group arrives together. Pick a stay, set your dates,
+            and add it to your cart.
           </p>
         </div>
 

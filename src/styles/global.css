@@ -105,9 +105,9 @@ ul {
 
 .eyebrow {
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-burgundy);
 }
@@ -135,7 +135,7 @@ ul {
 }
 
 .section-head h2 {
-  font-size: clamp(2.35rem, 5.5vw, 3.75rem);
+  font-size: clamp(2.75rem, 6.2vw, 4.35rem);
   max-width: 14ch;
   color: var(--color-burgundy);
 }

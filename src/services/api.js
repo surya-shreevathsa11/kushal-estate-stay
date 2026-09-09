@@ -71,8 +71,6 @@ export {
   setGuestToken,
   clearGuestToken,
   extractGuestAuthToken,
-  requestGuestPin,
-  verifyGuestPin,
   exchangeGoogleCredential,
   getGoogleClientId,
 } from './varaGuestAuth.ts'

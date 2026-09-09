@@ -4,48 +4,13 @@ import {
   exchangeGoogleCredential,
   extractGuestAuthToken,
   getGuestToken,
-  requestGuestPin,
   setGuestToken,
-  verifyGuestPin,
 } from '../services/api.js'
 
 export function useGuestAuth() {
   const [token, setToken] = useState(() => getGuestToken())
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState(null)
-
-  const requestPin = useCallback(async ({ email, name }) => {
-    setBusy(true)
-    setError(null)
-    try {
-      await requestGuestPin({ email, name })
-      return true
-    } catch (err) {
-      setError(err?.message || 'Could not send PIN.')
-      return false
-    } finally {
-      setBusy(false)
-    }
-  }, [])
-
-  const verifyPin = useCallback(async ({ email, pin, name }) => {
-    setBusy(true)
-    setError(null)
-    try {
-      const data = await verifyGuestPin({ email, pin, name })
-      const next = extractGuestAuthToken(data)
-      if (!next) throw new Error('No session token returned.')
-      setGuestToken(next)
-      setToken(next)
-      window.dispatchEvent(new Event('guest-auth-changed'))
-      return true
-    } catch (err) {
-      setError(err?.message || 'Could not verify PIN.')
-      return false
-    } finally {
-      setBusy(false)
-    }
-  }, [])
 
   const signInWithGoogle = useCallback(async (credential) => {
     setBusy(true)
@@ -72,14 +37,17 @@ export function useGuestAuth() {
     window.dispatchEvent(new Event('guest-auth-changed'))
   }, [])
 
+  const clearError = useCallback(() => {
+    setError(null)
+  }, [])
+
   return {
     token,
     isSignedIn: Boolean(token),
     signedIn: Boolean(token),
     busy,
     error,
-    requestPin,
-    verifyPin,
+    clearError,
     signInWithGoogle,
     signOut,
   }

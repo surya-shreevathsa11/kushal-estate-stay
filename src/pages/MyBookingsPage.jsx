@@ -47,7 +47,7 @@ export default function MyBookingsPage() {
 
         <div className="empty-state">
           {!isSignedIn ? (
-            <p>Sign in as a guest to see your bookings.</p>
+            <p>Sign in with Google to see your bookings.</p>
           ) : bookings.length === 0 ? (
             <p>{note || 'No bookings yet.'}</p>
           ) : (

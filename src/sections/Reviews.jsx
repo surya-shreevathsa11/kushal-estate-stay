@@ -10,7 +10,7 @@ export default function Reviews() {
       <div className="shell">
         <div className="section-head" ref={headRef}>
           <p className="eyebrow">Reviews</p>
-          <div className="rule" />
+          <div className="rule" style={{ background: 'var(--color-sand)' }} />
           <h2>Words from recent stays.</h2>
           <p className="lede">
             Placeholder guest notes - replace with real reviews when you have

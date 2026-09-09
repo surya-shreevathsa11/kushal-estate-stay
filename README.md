@@ -37,7 +37,7 @@ Static catalog: `src/utils/catalog.js`.
 Same pattern as BB Estate Stay:
 
 1. **Stay** section (`#stay`) lists room types with **Check availability**
-2. Guest **Sign in** (email PIN) when needed
+2. Guest **Sign in** with Google when needed
 3. Modal: dates + guests → quote check → **add to cart**
 4. Checkout continues on `#cart` (Razorpay when Sathwik wires payments)
 
@@ -53,14 +53,14 @@ See `.env.example`:
 |----------|---------|
 | `VITE_API_BASE_URL` | API host (empty + Vite proxy → `localhost:3000`) |
 | `VITE_PROPERTY_SLUG` | Default `kushal-estate-stay` |
-| `VITE_GOOGLE_CLIENT_ID` | Guest Google sign-in |
+| `VITE_GOOGLE_CLIENT_ID` | Required for guest Google sign-in (must match API Google client ID) |
 | `VITE_RAZORPAY_KEY_ID` | Checkout |
 
 ### Endpoints expected
 
 - `GET /api/public/properties/{slug}/rooms`
 - `POST /api/public/properties/{slug}/quote`
-- `POST /api/guest-auth/request-pin` · `verify-pin` · `google`
+- `POST /api/guest-auth/google`
 - `GET/POST/DELETE /api/guest/bookings/cart` (+ `/items`)
 - `GET /api/guest/bookings`
 - `POST /api/guest/payments/order` · `verify`

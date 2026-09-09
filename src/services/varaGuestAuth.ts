@@ -1,9 +1,7 @@
 /**
- * Vara guest auth API - guest-auth HTTP and Bearer-backed guest API calls.
+ * Vara guest auth API - Google credential exchange and Bearer-backed guest API calls.
  *
  * Endpoints:
- * - POST /api/guest-auth/request-pin
- * - POST /api/guest-auth/verify-pin
  * - POST /api/guest-auth/google
  * - Authorized guest routes with Authorization: Bearer <token>
  */
@@ -88,11 +86,11 @@ function guestAuthErrorMessage(status: number, data: unknown) {
   if (msg) return msg
   switch (status) {
     case 401:
-      return 'Could not verify your credentials. Please try again.'
+      return 'Could not verify your Google account. Please try again.'
     case 429:
-      return 'Too many attempts. Please wait before requesting another PIN.'
+      return 'Too many sign-in attempts. Please wait and try again.'
     case 503:
-      return 'Google sign-in is not available right now. Try email PIN instead.'
+      return 'Google sign-in is not available right now. Please try again later.'
     default:
       return 'Request failed. Please try again.'
   }
@@ -158,41 +156,6 @@ export async function guestAuthorizedFetch(
       ...(options.headers ?? {}),
       Authorization: `Bearer ${token}`,
     },
-  })
-}
-
-export function requestGuestPin(payload: { email: string; name: string }) {
-  return apiFetch('/api/guest-auth/request-pin', {
-    method: 'POST',
-    body: JSON.stringify({
-      propertySlug: PROPERTY_SLUG,
-      email: payload.email,
-      name: payload.name,
-    }),
-  })
-}
-
-export function verifyGuestPin(payload: {
-  email: string
-  pin: string
-  name?: string
-}) {
-  const body: {
-    propertySlug: string
-    email: string
-    pin: string
-    name?: string
-  } = {
-    propertySlug: PROPERTY_SLUG,
-    email: payload.email,
-    pin: payload.pin,
-  }
-  if (payload.name != null && String(payload.name).trim()) {
-    body.name = String(payload.name).trim()
-  }
-  return apiFetch('/api/guest-auth/verify-pin', {
-    method: 'POST',
-    body: JSON.stringify(body),
   })
 }
 

@@ -1,18 +1,32 @@
 import { createPortal } from 'react-dom'
-import { useEffect, useState } from 'react'
-import { Button } from './Button'
+import { useEffect, useRef, useState } from 'react'
 import { useGuestAuth } from '../hooks/useGuestAuth'
+import { getGoogleClientId } from '../services/api.js'
+import { loadGoogleIdentityScript } from '../utils/googleIdentity'
 
 /**
- * Email PIN guest sign-in (Vara guest-auth). Google can be wired later via VITE_GOOGLE_CLIENT_ID.
+ * Google Identity Services guest sign-in (Vara POST /api/guest-auth/google).
  */
 export function SignInModal({ open, onClose }) {
-  const { requestPin, verifyPin, busy, error } = useGuestAuth()
-  const [step, setStep] = useState('requestPin')
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [pin, setPin] = useState('')
-  const [localMsg, setLocalMsg] = useState('')
+  const { signInWithGoogle, busy, error, clearError } = useGuestAuth()
+  const [configError, setConfigError] = useState('')
+  const [loadingGis, setLoadingGis] = useState(false)
+  const buttonRef = useRef(null)
+  const onCloseRef = useRef(onClose)
+  const signInRef = useRef(signInWithGoogle)
+  const clearErrorRef = useRef(clearError)
+
+  useEffect(() => {
+    onCloseRef.current = onClose
+  }, [onClose])
+
+  useEffect(() => {
+    signInRef.current = signInWithGoogle
+  }, [signInWithGoogle])
+
+  useEffect(() => {
+    clearErrorRef.current = clearError
+  }, [clearError])
 
   useEffect(() => {
     if (!open) return undefined
@@ -29,32 +43,74 @@ export function SignInModal({ open, onClose }) {
   }, [open, onClose])
 
   useEffect(() => {
-    if (!open) {
-      setStep('requestPin')
-      setPin('')
-      setLocalMsg('')
+    if (!open) return undefined
+
+    let cancelled = false
+    const clientId = getGoogleClientId()
+
+    ;(async () => {
+      clearErrorRef.current()
+
+      if (!clientId) {
+        if (!cancelled) {
+          setConfigError(
+            'Google sign-in is not configured. Set VITE_GOOGLE_CLIENT_ID in your environment.',
+          )
+          setLoadingGis(false)
+        }
+        return
+      }
+
+      if (!cancelled) {
+        setConfigError('')
+        setLoadingGis(true)
+      }
+
+      try {
+        const google = await loadGoogleIdentityScript()
+        if (cancelled || !buttonRef.current) return
+
+        google.accounts.id.initialize({
+          client_id: clientId,
+          callback: async (response) => {
+            const credential = response?.credential
+            if (!credential) return
+            const ok = await signInRef.current(credential)
+            if (ok) onCloseRef.current()
+          },
+          auto_select: false,
+          cancel_on_tap_outside: true,
+        })
+
+        buttonRef.current.innerHTML = ''
+        google.accounts.id.renderButton(buttonRef.current, {
+          theme: 'outline',
+          size: 'large',
+          text: 'signin_with',
+          shape: 'rectangular',
+          width: 320,
+        })
+      } catch (err) {
+        if (!cancelled) {
+          setConfigError(err?.message || 'Could not load Google sign-in.')
+        }
+      } finally {
+        if (!cancelled) setLoadingGis(false)
+      }
+    })()
+
+    const buttonEl = buttonRef.current
+
+    return () => {
+      cancelled = true
+      if (buttonEl) buttonEl.innerHTML = ''
     }
   }, [open])
 
   if (!open) return null
 
-  const onSubmit = async (e) => {
-    e.preventDefault()
-    setLocalMsg('')
-    if (step === 'requestPin') {
-      const ok = await requestPin({ email, name })
-      if (ok) {
-        setStep('verifyPin')
-        setLocalMsg('We sent a PIN to your email. Enter it below.')
-      }
-      return
-    }
-    const ok = await verifyPin({ email, pin, name })
-    if (ok) {
-      window.dispatchEvent(new Event('guest-auth-changed'))
-      onClose()
-    }
-  }
+  const statusMessage = error || configError
+  const showBusy = busy || loadingGis
 
   return createPortal(
     <div
@@ -78,60 +134,32 @@ export function SignInModal({ open, onClose }) {
           </button>
         </div>
         <p className="modal-lead">
-          Verify your email with a one-time PIN to check availability and add stays
-          to your cart.
+          Continue with Google to check availability, manage your cart, and view
+          bookings.
         </p>
-        <form className="signin-form" onSubmit={onSubmit}>
-          <label className="field">
-            <span>Full name</span>
-            <input
-              required
-              autoComplete="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </label>
-          <label className="field">
-            <span>Email</span>
-            <input
-              type="email"
-              required
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </label>
-          {step === 'verifyPin' ? (
-            <label className="field">
-              <span>PIN</span>
-              <input
-                required
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                maxLength={8}
-                value={pin}
-                onChange={(e) => setPin(e.target.value)}
-              />
-            </label>
-          ) : null}
-          {(error || localMsg) && (
-            <p className={`form-status ${error ? 'err' : 'ok'}`} role="status">
-              {error || localMsg}
+        <div className="signin-google">
+          {showBusy && !configError ? (
+            <p className="form-status" role="status">
+              {busy ? 'Signing in…' : 'Loading Google sign-in…'}
             </p>
-          )}
+          ) : null}
+          <div
+            ref={buttonRef}
+            className="signin-google-btn"
+            hidden={Boolean(configError) || busy}
+            aria-hidden={Boolean(configError) || busy}
+          />
+          {statusMessage ? (
+            <p className="form-status err" role="status">
+              {statusMessage}
+            </p>
+          ) : null}
           <div className="modal-actions">
-            <Button type="submit" variant="primary" disabled={busy}>
-              {busy
-                ? 'Please wait…'
-                : step === 'requestPin'
-                  ? 'Send PIN'
-                  : 'Verify & continue'}
-            </Button>
             <button type="button" className="modal-text-btn" onClick={onClose}>
               Cancel
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>,
     document.body,

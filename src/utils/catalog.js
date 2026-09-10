@@ -109,12 +109,12 @@ export const ROOM_INVENTORY_SUMMARY = [
 ]
 
 export const GALLERY_ITEMS = [
-  { id: 1, label: 'Morning mist', tone: '#5B0E14' },
-  { id: 2, label: 'Backwater edge', tone: '#1C1412' },
-  { id: 3, label: 'A-frame porch', tone: '#5B0E14' },
-  { id: 4, label: 'River light', tone: '#1C1412' },
-  { id: 5, label: 'Evening table', tone: '#5B0E14' },
-  { id: 6, label: 'Path to water', tone: '#1C1412' },
+  { id: 1, label: 'Morning mist', tone: '#2F6F74' },
+  { id: 2, label: 'Backwater edge', tone: '#121A17' },
+  { id: 3, label: 'A-frame porch', tone: '#1A2E2A' },
+  { id: 4, label: 'River light', tone: '#3D8A90' },
+  { id: 5, label: 'Evening table', tone: '#0B1210' },
+  { id: 6, label: 'Path to water', tone: '#C24A32' },
 ]
 
 export const REVIEWS = [

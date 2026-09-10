@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../components/Button'
 import { HERO_VIDEO, prefersReducedMotion } from '../utils/video'
+import { HOMESTAY_LOCATION } from '../utils/location'
 
 export default function Hero() {
   const copyRef = useRef(null)
@@ -30,6 +31,8 @@ export default function Hero() {
     play()
   }, [])
 
+  const coords = `${HOMESTAY_LOCATION.lat.toFixed(3)}° N · ${HOMESTAY_LOCATION.lng.toFixed(3)}° E`
+
   return (
     <section className="hero" id="top" aria-label="Introduction">
       <div className="hero-media" aria-hidden={!videoOk}>
@@ -53,23 +56,20 @@ export default function Hero() {
 
       <div className="hero-content">
         <div className="hero-copy" ref={copyRef}>
-          <p className="eyebrow" style={{ color: 'var(--color-sand)' }}>
-            Homestay
-          </p>
+          <p className="hero-coords">{coords}</p>
           <h1 className="hero-brand">Kushal Estate Stay</h1>
           <p className="hero-line">
-            A place to linger on the backwaters of the Harangi river - cabins,
-            rooms, and quiet water light.
+            Night water, hillside green, and stays that move at the river’s pace.
           </p>
           <div className="hero-actions">
             <Button as="a" href="#stay" variant="primary">
               Check availability
             </Button>
             <Button as="a" href="#about" variant="ghost">
-              About the land
+              Read the land
             </Button>
           </div>
-          <p className="hero-locale">Harangi river · Karnataka</p>
+          <div className="hero-waterline" aria-hidden="true" />
         </div>
       </div>
     </section>

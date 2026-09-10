@@ -7,6 +7,7 @@ import Gallery from '../sections/Gallery'
 import Reviews from '../sections/Reviews'
 import Location from '../sections/Location'
 import Footer from '../sections/Footer'
+import ChapterRail from '../components/ChapterRail'
 import { useSmoothScroll } from '../hooks/useSmoothScroll'
 
 function scrollToHashSection() {
@@ -32,6 +33,7 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
+      <ChapterRail />
       <main>
         <Hero />
         <About />

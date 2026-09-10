@@ -79,10 +79,10 @@ export default function Navbar() {
                 Sign in
               </button>
             )}
+            <Button as="a" href="#stay" className="nav-cta" variant="primary">
+              Book
+            </Button>
           </nav>
-          <Button as="a" href="#stay" className="nav-cta" variant="primary">
-            Book
-          </Button>
           <button
             type="button"
             className="nav-toggle"

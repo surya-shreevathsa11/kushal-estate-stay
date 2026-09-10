@@ -1,13 +1,25 @@
 :root {
-  /* Brand - flat solids only */
+  /* Hydrographic Night */
+  --color-night: #0b1210;
+  --color-night-elevated: #121a17;
+  --color-mist: #d7e0d9;
+  --color-mist-soft: #a8b5ab;
+  --color-steel: #2f6f74;
+  --color-steel-bright: #3d8a90;
+  --color-marker: #c24a32;
+  --color-marker-soft: #d45a40;
+
+  /* Booking island (Stay + modals) — frozen estate palette */
   --color-sand: #f1e194;
   --color-burgundy: #5b0e14;
   --color-ink: #1c1412;
   --color-ink-muted: #5a4a46;
   --color-burgundy-soft: #7a242c;
 
-  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --font-body: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --font-stay-display: 'Syne', system-ui, sans-serif;
 
   --space-xs: 0.5rem;
   --space-sm: 1rem;
@@ -15,15 +27,16 @@
   --space-lg: 3rem;
   --space-xl: 5rem;
   --space-2xl: 8rem;
-  --section-pad: clamp(4.5rem, 12vw, 8.5rem);
+  --section-pad: clamp(5rem, 14vw, 9rem);
 
-  --max-width: 72rem;
-  --nav-height: 4.25rem;
+  --max-width: 78rem;
+  --nav-height: 4rem;
+  --rail-width: 3.25rem;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
 
-  --shadow-soft: 0 12px 32px rgba(28, 20, 18, 0.12);
+  --shadow-soft: 0 18px 48px rgba(0, 0, 0, 0.35);
 
-  color-scheme: light;
+  color-scheme: dark;
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Syne:wght@400;500;600;700;800&display=swap');
 
 *,
 *::before,
@@ -25,10 +25,10 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 1.0625rem;
+  font-size: 1.05rem;
   line-height: 1.65;
-  color: var(--color-ink);
-  background: var(--color-sand);
+  color: var(--color-mist);
+  background: var(--color-night);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -65,9 +65,9 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 500;
-  line-height: 1.12;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   margin: 0;
 }
 
@@ -82,7 +82,7 @@ ul {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-burgundy);
+  outline: 2px solid var(--color-steel-bright);
   outline-offset: 3px;
 }
 
@@ -103,19 +103,19 @@ ul {
   margin-inline: auto;
 }
 
-.eyebrow {
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+.chapter-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-burgundy);
+  color: var(--color-steel-bright);
 }
 
 .rule {
-  width: 3.5rem;
+  width: 2.5rem;
   height: 1px;
-  background: var(--color-burgundy);
+  background: var(--color-steel);
 }
 
 .display {
@@ -123,9 +123,10 @@ ul {
 }
 
 .lede {
-  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
-  color: var(--color-ink-muted);
-  max-width: 38rem;
+  font-size: clamp(1.02rem, 1.5vw, 1.15rem);
+  color: var(--color-mist-soft);
+  max-width: 36rem;
+  font-weight: 300;
 }
 
 .section-head {
@@ -135,9 +136,19 @@ ul {
 }
 
 .section-head h2 {
-  font-size: clamp(2.75rem, 6.2vw, 4.35rem);
-  max-width: 14ch;
-  color: var(--color-burgundy);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  max-width: 12ch;
+  color: var(--color-mist);
+}
+
+/* Legacy alias used by Stay markup */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-steel-bright);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -4,7 +4,7 @@ import { useGsapStagger } from '../hooks/useGsapStagger'
 import { prefersReducedMotion } from '../utils/video.js'
 
 export default function Reviews() {
-  const headRef = useGsapStagger(':scope > *')
+  const introRef = useGsapStagger(':scope > *')
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
   const review = REVIEWS[active]
@@ -23,14 +23,12 @@ export default function Reviews() {
 
   return (
     <section className="reviews" id="reviews">
-      <div className="shell">
-        <div className="section-head" ref={headRef}>
-          <p className="eyebrow">Reviews</p>
-          <div className="rule" style={{ background: 'var(--color-sand)' }} />
-          <h2>Words from recent stays.</h2>
+      <div className="shell reviews-layout">
+        <div className="reviews-intro" ref={introRef}>
+          <p className="chapter-label">Reviews · 04</p>
+          <h2>Notes from the water.</h2>
           <p className="lede">
-            Quiet mornings, long evenings, and the river in between - a few notes
-            from guests who stayed with us.
+            Quiet mornings, long evenings, and the river in between.
           </p>
         </div>
 
@@ -46,9 +44,6 @@ export default function Reviews() {
           }}
         >
           <blockquote className="reviews-feature" key={review.id}>
-            <span className="reviews-mark" aria-hidden="true">
-              “
-            </span>
             <p className="review-quote">{review.quote}</p>
             <footer className="review-meta">
               <strong>{review.name}</strong>
@@ -86,26 +81,9 @@ export default function Reviews() {
             >
               →
             </button>
-          </div>
-
-          <div className="reviews-rail" role="list">
-            {REVIEWS.map((item, index) => (
-              <button
-                key={item.id}
-                type="button"
-                role="listitem"
-                className={`review-card${index === active ? ' is-active' : ''}`}
-                onClick={() => setActive(index)}
-                aria-pressed={index === active}
-              >
-                <span className="review-card-index">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <span className="review-card-name">{item.name}</span>
-                <span className="review-card-detail">{item.detail}</span>
-                <span className="review-card-preview">“{item.quote}”</span>
-              </button>
-            ))}
+            <span className="reviews-index">
+              {String(active + 1).padStart(2, '0')} / {String(REVIEWS.length).padStart(2, '0')}
+            </span>
           </div>
         </div>
       </div>

@@ -6,10 +6,9 @@ export default function Footer() {
       <div className="shell footer-grid">
         <div>
           <p className="footer-brand">Kushal Estate Stay</p>
-          <p>
+          <p className="footer-brand-copy">
             A private homestay on the backwaters of the Harangi river,
-            Karnataka. Content and contact details will be updated by the
-            owners.
+            Karnataka. Content and contact details will be updated by the owners.
           </p>
         </div>
         <div>
@@ -52,7 +51,7 @@ export default function Footer() {
       </div>
       <div className="shell footer-bottom">
         <Logo wordmark />
-        <p>© {new Date().getFullYear()} Kushal Estate Stay. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Kushal Estate Stay</p>
       </div>
     </footer>
   )

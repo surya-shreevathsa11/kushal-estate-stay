@@ -565,7 +565,11 @@
   display: grid;
   place-items: center;
   padding: 1.25rem;
+  padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
+    max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
   background: rgba(11, 18, 16, 0.72);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .modal-panel {
@@ -598,6 +602,11 @@
   line-height: 1;
   color: var(--color-burgundy);
   padding: 0.15rem 0.35rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
 }
 
 .modal-lead {
@@ -633,19 +642,177 @@
   border-color: var(--color-burgundy-soft);
 }
 
+/* Sign-in modal — phone / tablet / desktop */
+.signin-modal-root {
+  align-items: end;
+}
+
+@media (min-width: 600px) {
+  .signin-modal-root {
+    align-items: center;
+  }
+}
+
+.signin-modal-panel {
+  width: min(100%, 26.5rem);
+  max-height: min(92svh, 42rem);
+  padding: 1.25rem 1.2rem 1.35rem;
+  border-radius: 0.75rem 0.75rem 0.2rem 0.2rem;
+}
+
+@media (min-width: 600px) {
+  .signin-modal-panel {
+    width: min(100%, 28rem);
+    padding: 1.5rem 1.5rem 1.6rem;
+    border-radius: 0.25rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .signin-modal-panel {
+    width: min(100%, 30rem);
+  }
+}
+
+.signin-modal-panel .modal-lead {
+  margin-bottom: 0.85rem;
+  font-size: clamp(0.92rem, 2.4vw, 1rem);
+  line-height: 1.55;
+}
+
+.signin-benefits {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0 0 1.15rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(91, 14, 20, 0.22);
+  background: rgba(91, 14, 20, 0.04);
+  list-style: none;
+}
+
+.signin-benefits li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+  line-height: 1.4;
+}
+
+.signin-benefits li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: var(--color-burgundy);
+}
+
 .signin-google {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 0.75rem;
+  width: 100%;
 }
 
-.signin-google-btn {
-  min-height: 2.5rem;
+.signin-status {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-ink-muted);
 }
 
-.signin-google-btn[hidden] {
+.signin-google-slot {
+  position: relative;
+  width: 100%;
+  min-height: 3rem;
+}
+
+.signin-google-slot.is-busy {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.signin-google-fallback {
+  width: 100%;
+  min-height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--color-burgundy);
+  background: #fff;
+  color: var(--color-ink);
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-radius: 0.2rem;
+  transition:
+    background 0.25s var(--ease-soft),
+    transform 0.25s var(--ease-soft),
+    box-shadow 0.25s var(--ease-soft);
+}
+
+.signin-google-fallback:hover:not(:disabled),
+.signin-google-fallback:focus-visible {
+  background: #faf7ef;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+}
+
+.signin-google-mark {
+  flex-shrink: 0;
+}
+
+.signin-google-gis {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.signin-google-gis[hidden] {
   display: none;
+}
+
+.signin-google-slot.is-live .signin-google-fallback {
+  /* Visual underlay while official GIS button sits on top */
+  pointer-events: none;
+}
+
+.signin-google-gis > div,
+.signin-google-gis iframe {
+  max-width: 100% !important;
+}
+
+.signin-hint {
+  margin: 0;
+  padding: 0.75rem 0.85rem;
+  border: 1px dashed var(--color-burgundy);
+  color: var(--color-burgundy);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  background: rgba(241, 225, 148, 0.35);
+}
+
+.signin-error {
+  margin: 0;
+  width: 100%;
+}
+
+.signin-privacy {
+  margin: 0.15rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--color-ink-muted);
+}
+
+.signin-actions {
+  margin-top: 0.35rem;
 }
 
 .modal-actions {
@@ -663,7 +830,9 @@
   text-decoration: underline;
   text-underline-offset: 0.22em;
   opacity: 0.9;
-  font-size: 0.86rem;
+  font-size: 0.92rem;
+  min-height: 2.5rem;
+  padding-inline: 0.15rem;
 }
 
 .availability-banner {

@@ -1,16 +1,13 @@
-import logo from '../assets/logo.svg'
+import logo from '../assets/logo.png'
 
-/**
- * Icon-only brand mark (illustration without wordmark text).
- * `wordmark` optionally renders the site name beside the mark.
- */
-export function Logo({ wordmark = true, inverted = false }) {
+/** Exact brand mark — no recolor, no baked-in wordmark text. */
+export function Logo({ wordmark = false, inverted = false }) {
   return (
     <span
       className={`logo-lockup${inverted ? ' logo-lockup--inverted' : ''}`}
       aria-label="Kushal Estate Stay"
     >
-      <img className="logo-mark" src={logo} alt="" width={160} height={68} />
+      <img className="logo-mark" src={logo} alt="" width={120} height={120} />
       {wordmark ? <span className="logo-word">Kushal Estate Stay</span> : null}
     </span>
   )

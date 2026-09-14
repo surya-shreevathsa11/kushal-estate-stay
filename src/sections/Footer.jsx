@@ -50,7 +50,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="shell footer-bottom">
-        <Logo wordmark />
+        <Logo />
         <p>© {new Date().getFullYear()} Kushal Estate Stay</p>
       </div>
     </footer>

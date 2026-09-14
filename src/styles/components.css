@@ -109,7 +109,6 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  color: inherit;
 }
 
 .logo-lockup {
@@ -118,32 +117,20 @@
   gap: 0.75rem;
   text-decoration: none;
   line-height: 0;
-}
-
-.site-nav .logo-lockup {
   color: var(--color-mist);
 }
 
 .site-nav .logo-mark {
-  height: 3.75rem;
+  height: 4.25rem;
 }
 
 @media (max-width: 640px) {
   .site-nav .logo-mark {
-    height: 3rem;
-  }
-
-  .site-nav .logo-word {
-    display: none;
+    height: 3.35rem;
   }
 }
 
 .footer-bottom .logo-mark,
 .page-shell .logo-mark {
-  height: 3.75rem;
-}
-
-.footer-bottom .logo-lockup,
-.page-shell .logo-lockup {
-  color: var(--color-mist);
+  height: 4rem;
 }

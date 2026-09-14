@@ -30,7 +30,7 @@
   --section-pad: clamp(5rem, 14vw, 9rem);
 
   --max-width: 78rem;
-  --nav-height: 4rem;
+  --nav-height: 5.25rem;
   --rail-width: 3.25rem;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

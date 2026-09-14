@@ -96,10 +96,11 @@
 }
 
 .logo-mark {
-  width: 2.1rem;
-  height: 2.1rem;
+  width: auto;
+  height: 2.75rem;
   flex-shrink: 0;
-  border-radius: 0.15rem;
+  display: block;
+  object-fit: contain;
 }
 
 .logo-word {
@@ -107,12 +108,42 @@
   font-size: 1.05rem;
   font-weight: 600;
   letter-spacing: -0.02em;
-  line-height: 1;
+  line-height: 1.1;
+  color: inherit;
 }
 
 .logo-lockup {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.75rem;
   text-decoration: none;
+  line-height: 0;
+}
+
+.site-nav .logo-lockup {
+  color: var(--color-mist);
+}
+
+.site-nav .logo-mark {
+  height: 3.75rem;
+}
+
+@media (max-width: 640px) {
+  .site-nav .logo-mark {
+    height: 3rem;
+  }
+
+  .site-nav .logo-word {
+    display: none;
+  }
+}
+
+.footer-bottom .logo-mark,
+.page-shell .logo-mark {
+  height: 3.75rem;
+}
+
+.footer-bottom .logo-lockup,
+.page-shell .logo-lockup {
+  color: var(--color-mist);
 }

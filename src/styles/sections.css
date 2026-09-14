@@ -70,7 +70,6 @@
   backdrop-filter: blur(14px);
 }
 
-.site-nav .logo-word,
 .site-nav .nav-links a,
 .site-nav .nav-text-btn {
   color: var(--color-mist);
@@ -1246,10 +1245,6 @@
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   color: var(--color-mist-soft);
-}
-
-.footer-bottom .logo-word {
-  color: var(--color-mist);
 }
 
 /* --- Page shells (cart / bookings) --- */

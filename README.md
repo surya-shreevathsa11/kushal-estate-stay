@@ -20,7 +20,7 @@ npm run dev
 
 Place the drone hero file at `public/drone-hero.mp4`. Until then, the hero uses an atmospheric fallback.
 
-Replace `src/assets/logo.svg` and gallery placeholders when final brand assets arrive.
+Gallery placeholders can be replaced when final photography arrives. Brand mark: `src/assets/logo.svg` (also `public/logo.svg` / favicon).
 
 ## Content (editable later)
 

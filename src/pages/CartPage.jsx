@@ -1,13 +1,28 @@
-import { useCallback, useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button } from '../components/Button'
 import { GuestChrome } from '../components/GuestChrome'
 import { useCart } from '../hooks/useCart'
 import { useGuestAuth } from '../hooks/useGuestAuth'
-import { getGuestToken, removeCartItem } from '../services/api.js'
+import {
+  createBookingRequest,
+  getGuestToken,
+  removeCartItem,
+} from '../services/api.js'
+import { formatInr } from '../utils/bookings'
+
+const TERMS_BULLETS = [
+  'Submitting a request does not charge you. Payment opens only after the estate approves your stay.',
+  'Check-in and check-out times will be confirmed with your booking.',
+  'Only registered guests may stay on the property.',
+  'Guests are responsible for any damages caused during their stay.',
+  'Please cancel through your guest account or by contacting the estate if plans change.',
+  'Quiet hours and house guidelines apply once you arrive.',
+]
 
 function formatItemDates(item) {
-  const checkIn = item.checkIn || item.check_in
-  const checkOut = item.checkOut || item.check_out
+  const checkIn = item.checkIn || item.check_in || item.startDate
+  const checkOut = item.checkOut || item.check_out || item.endDate
   if (checkIn && checkOut) return `${checkIn} → ${checkOut}`
   if (checkIn) return `From ${checkIn}`
   return 'Dates to confirm'
@@ -17,12 +32,237 @@ function itemKey(item, index) {
   return item.id || item.itemId || item.cartItemId || `cart-${index}`
 }
 
+function isValidEmail(s) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(s).trim())
+}
+
+function isValidPhone(s) {
+  const digits = String(s).replace(/\D/g, '')
+  return digits.length >= 10
+}
+
+function RequestBookingModal({ open, onClose, onRequested, initialContact }) {
+  const [step, setStep] = useState('contact')
+  const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [accepted, setAccepted] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [err, setErr] = useState('')
+
+  useEffect(() => {
+    if (!open) return undefined
+    setStep('contact')
+    setAccepted(false)
+    setErr('')
+    setBusy(false)
+    setFullName(initialContact?.name || '')
+    setEmail(initialContact?.email || '')
+    setPhone(initialContact?.phone || '')
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [open, initialContact])
+
+  useEffect(() => {
+    if (!open) return undefined
+    const onKey = (e) => {
+      if (e.key === 'Escape' && !busy) onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open, busy, onClose])
+
+  const goToTerms = useCallback(() => {
+    setErr('')
+    if (!fullName.trim()) {
+      setErr('Please enter your name.')
+      return
+    }
+    if (!isValidEmail(email)) {
+      setErr('Please enter a valid email address.')
+      return
+    }
+    if (!isValidPhone(phone)) {
+      setErr('Please enter a valid phone number (at least 10 digits).')
+      return
+    }
+    setStep('terms')
+  }, [fullName, email, phone])
+
+  const submitRequest = useCallback(async () => {
+    if (!accepted) return
+    const token = getGuestToken()
+    if (!token) {
+      setErr('Please sign in again to continue.')
+      return
+    }
+    setBusy(true)
+    setErr('')
+    try {
+      await createBookingRequest(
+        {
+          name: fullName.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
+        },
+        token,
+      )
+      onRequested?.()
+      onClose()
+    } catch (e) {
+      setErr(e?.message || 'Could not submit your booking request.')
+    } finally {
+      setBusy(false)
+    }
+  }, [accepted, fullName, email, phone, onClose, onRequested])
+
+  if (!open) return null
+
+  const titleId = step === 'contact' ? 'checkout-contact-title' : 'checkout-terms-title'
+  const titleText = step === 'contact' ? 'Your details' : 'Terms & conditions'
+
+  const modal = (
+    <div
+      className="checkout-terms-modal-root"
+      role="presentation"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget && !busy) onClose()
+      }}
+    >
+      <div
+        className="checkout-terms-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        <div className="checkout-terms-modal-header">
+          <h2 id={titleId} className="checkout-terms-modal-title">
+            {titleText}
+          </h2>
+          <button
+            type="button"
+            className="checkout-terms-modal-close"
+            onClick={() => !busy && onClose()}
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+
+        {step === 'contact' ? (
+          <>
+            <p className="checkout-step-hint">
+              Step 1 of 2 — we&apos;ll send your stay request to the estate
+            </p>
+            <div className="checkout-contact-stack">
+              <label className="checkout-form-field">
+                <span>Full name</span>
+                <input
+                  type="text"
+                  name="checkout-full-name"
+                  autoComplete="name"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  disabled={busy}
+                />
+              </label>
+              <label className="checkout-form-field">
+                <span>Email</span>
+                <input
+                  type="email"
+                  name="checkout-email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={busy}
+                />
+              </label>
+              <label className="checkout-form-field">
+                <span>Phone</span>
+                <input
+                  type="tel"
+                  name="checkout-phone"
+                  autoComplete="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  disabled={busy}
+                />
+              </label>
+            </div>
+            <div className="checkout-contact-actions">
+              {err ? (
+                <p className="checkout-form-message checkout-form-message--error">{err}</p>
+              ) : null}
+              <Button type="button" variant="primary" disabled={busy} onClick={goToTerms}>
+                Continue
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <p className="checkout-step-hint">
+              Step 2 of 2 — payment happens only after the estate approves
+            </p>
+            <button
+              type="button"
+              className="checkout-terms-back"
+              onClick={() => !busy && setStep('contact')}
+            >
+              ← Edit details
+            </button>
+            <div className="checkout-terms-modal-body">
+              <p>By submitting this request, you agree to the following:</p>
+              <ul className="checkout-terms-list">
+                {TERMS_BULLETS.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="checkout-terms-modal-footer">
+              <label className="checkout-terms-accept">
+                <input
+                  type="checkbox"
+                  checked={accepted}
+                  disabled={busy}
+                  onChange={(e) => setAccepted(e.target.checked)}
+                />
+                <span>I accept the terms and conditions</span>
+              </label>
+              {err ? (
+                <p className="checkout-form-message checkout-form-message--error">{err}</p>
+              ) : null}
+              <Button
+                type="button"
+                variant="primary"
+                className="checkout-terms-submit"
+                disabled={!accepted || busy}
+                onClick={() => void submitRequest()}
+              >
+                {busy ? 'Submitting request…' : 'Submit request'}
+              </Button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  )
+
+  return createPortal(modal, document.body)
+}
+
 export default function CartPage() {
-  const { items, count, refresh } = useCart()
+  const { items, count, cart, refresh } = useCart()
   const { isSignedIn } = useGuestAuth()
   const [removing, setRemoving] = useState(null)
   const [note, setNote] = useState('')
   const [loading, setLoading] = useState(false)
+  const [checkoutOpen, setCheckoutOpen] = useState(false)
+  const [checkoutKey, setCheckoutKey] = useState(0)
+  const [requestSuccess, setRequestSuccess] = useState(false)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -48,6 +288,17 @@ export default function CartPage() {
     }
   }, [isSignedIn, load])
 
+  const totalPrice = cart?.totalPrice
+  const primaryPayable = cart?.upperPayableTotal ?? cart?.lowerPayableTotal
+  const primaryPercent = cart?.upperPercent ?? cart?.lowerPercent
+  const hasSummary = useMemo(
+    () =>
+      totalPrice != null ||
+      primaryPayable != null ||
+      primaryPercent != null,
+    [totalPrice, primaryPayable, primaryPercent],
+  )
+
   const onRemove = async (item, index) => {
     const token = getGuestToken()
     if (!token) {
@@ -61,6 +312,7 @@ export default function CartPage() {
     }
     setRemoving(itemKey(item, index))
     setNote('')
+    setRequestSuccess(false)
     try {
       await removeCartItem({ itemId: id, id }, token)
       await refresh()
@@ -72,10 +324,24 @@ export default function CartPage() {
     }
   }
 
+  const openCheckout = () => {
+    setCheckoutKey((k) => k + 1)
+    setCheckoutOpen(true)
+    setRequestSuccess(false)
+    setNote('')
+  }
+
+  const onRequested = async () => {
+    setRequestSuccess(true)
+    setNote('')
+    await refresh()
+    window.dispatchEvent(new Event('cart-updated'))
+  }
+
   return (
     <GuestChrome
       title="Your cart"
-      lede="Review stays before checkout. Payments connect to Razorpay when the property goes live."
+      lede="Review stays, then request to book. You pay with Razorpay only after the estate approves."
     >
       {!isSignedIn ? (
         <div className="guest-panel guest-panel--prompt">
@@ -108,7 +374,25 @@ export default function CartPage() {
             </button>
           </div>
 
-          {count === 0 ? (
+          {requestSuccess ? (
+            <div className="cart-request-success" role="status">
+              <p className="cart-request-success-title">Booking request submitted</p>
+              <p>
+                The estate will review your dates. When approved, complete payment from
+                My bookings.
+              </p>
+              <div className="guest-actions">
+                <Button as="a" href="#my-bookings" variant="primary">
+                  View my bookings
+                </Button>
+                <Button as="a" href="#stay" variant="ghost">
+                  Add another stay
+                </Button>
+              </div>
+            </div>
+          ) : null}
+
+          {count === 0 && !requestSuccess ? (
             <div className="guest-empty">
               <p>Your cart is empty.</p>
               <p className="guest-empty-hint">
@@ -118,7 +402,9 @@ export default function CartPage() {
                 Choose a stay
               </Button>
             </div>
-          ) : (
+          ) : null}
+
+          {count > 0 ? (
             <ul className="guest-list">
               {items.map((item, index) => (
                 <li className="guest-card" key={itemKey(item, index)}>
@@ -127,7 +413,11 @@ export default function CartPage() {
                       {String(index + 1).padStart(2, '0')}
                     </p>
                     <h2 className="guest-card-title">
-                      {item.name || item.roomName || item.roomId || 'Stay'}
+                      {item.name ||
+                        item.roomName ||
+                        item.room?.roomName ||
+                        item.roomId ||
+                        'Stay'}
                     </h2>
                     <p className="guest-card-meta">{formatItemDates(item)}</p>
                     {(item.adults != null || item.guests != null) && (
@@ -135,6 +425,11 @@ export default function CartPage() {
                         {item.adults ?? item.guests} guests
                       </p>
                     )}
+                    {item.price != null || item.totalPrice != null ? (
+                      <p className="guest-card-meta">
+                        {formatInr(item.price ?? item.totalPrice)}
+                      </p>
+                    ) : null}
                   </div>
                   <button
                     type="button"
@@ -147,7 +442,27 @@ export default function CartPage() {
                 </li>
               ))}
             </ul>
-          )}
+          ) : null}
+
+          {count > 0 && hasSummary ? (
+            <dl className="cart-summary">
+              {totalPrice != null ? (
+                <div>
+                  <dt>Stay total</dt>
+                  <dd>{formatInr(totalPrice)}</dd>
+                </div>
+              ) : null}
+              {primaryPayable != null ? (
+                <div>
+                  <dt>
+                    Payable after approval
+                    {primaryPercent != null ? ` (${primaryPercent}%)` : ''}
+                  </dt>
+                  <dd>{formatInr(primaryPayable)}</dd>
+                </div>
+              ) : null}
+            </dl>
+          ) : null}
 
           {note ? (
             <p className="guest-note" role="status">
@@ -160,13 +475,23 @@ export default function CartPage() {
               <Button as="a" href="#stay" variant="ghost">
                 Add another stay
               </Button>
+              <Button type="button" variant="primary" onClick={openCheckout}>
+                Request to book
+              </Button>
               <p className="guest-checkout-note">
-                Checkout unlocks when Razorpay is connected for this property.
+                No charge yet — you&apos;ll pay with Razorpay after the estate approves.
               </p>
             </div>
           ) : null}
         </div>
       )}
+
+      <RequestBookingModal
+        key={checkoutKey}
+        open={checkoutOpen}
+        onClose={() => setCheckoutOpen(false)}
+        onRequested={() => void onRequested()}
+      />
     </GuestChrome>
   )
 }

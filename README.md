@@ -34,12 +34,14 @@ Static catalog: `src/utils/catalog.js`.
 
 ## Booking flow
 
-Same pattern as BB Estate Stay:
+Same pattern as other Vara properties (e.g. BB Estate Stay):
 
-1. **Stay** section (`#stay`) lists room types with **Check availability**
+1. **Stay** section (`#stay`) lists rooms with **Check availability**
 2. Guest **Sign in** with Google when needed
 3. Modal: dates + guests → quote check → **add to cart**
-4. Checkout continues on `#cart` (Razorpay when Sathwik wires payments)
+4. **Cart** (`#cart`): review stays → **Request to book** (contact + terms)
+5. Estate **approves** the request
+6. **My bookings** (`#my-bookings`): **Complete payment** via Razorpay → booking confirmed
 
 There is no separate homepage “booking form” section - booking lives on each stay type.
 
@@ -54,7 +56,7 @@ See `.env.example`:
 | `VITE_API_BASE_URL` | API host (empty + Vite proxy → `localhost:3000`) |
 | `VITE_PROPERTY_SLUG` | Default `kushal-estate-stay` |
 | `VITE_GOOGLE_CLIENT_ID` | Required for guest Google sign-in (must match API Google client ID) |
-| `VITE_RAZORPAY_KEY_ID` | Checkout |
+| `VITE_RAZORPAY_KEY_ID` | Public Razorpay key for Checkout (secret stays on Vara) |
 
 ### Endpoints expected
 
@@ -62,10 +64,11 @@ See `.env.example`:
 - `POST /api/public/properties/{slug}/quote`
 - `POST /api/guest-auth/google`
 - `GET/POST/DELETE /api/guest/bookings/cart` (+ `/items`)
+- `POST /api/guest/bookings/requests`
 - `GET /api/guest/bookings`
 - `POST /api/guest/payments/order` · `verify`
 
-Client: `src/services/api.js` + `src/services/varaGuestAuth.ts`.
+Client: `src/services/api.js` + `src/services/varaGuestAuth.ts`. Checkout UI: `src/utils/razorpay.js`.
 
 ### Suggested Vara room SKUs / units
 

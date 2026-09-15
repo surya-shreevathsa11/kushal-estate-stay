@@ -1,9 +1,9 @@
 import { Logo } from '../components/Logo'
-import varaLogo from '../assets/vara-logo(OG).jpeg'
+import varaLogo from '../assets/vara-logo.png'
 
 const WHATSAPP_HREF = 'https://wa.me/919481976321'
 const VARA_INSTAGRAM_HREF =
-  'https://www.instagram.com/vara.labs?stkn=MWx6dnBnamdzbWRtNA=='
+  'https://www.instagram.com/vara.labs?stkn=OHJkNWVxZjUzdDRq&utm_source=qr'
 
 export default function Footer() {
   return (
@@ -65,7 +65,7 @@ export default function Footer() {
         >
           <img
             src={varaLogo}
-            alt="VARA"
+            alt="VARA Labs circular logo mark"
             className="footer-vara-mark"
             width="48"
             height="48"

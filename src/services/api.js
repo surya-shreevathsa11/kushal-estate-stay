@@ -8,6 +8,14 @@ export function getRooms() {
   return apiFetch(`/api/public/properties/${PROPERTY_SLUG}/rooms`)
 }
 
+export function getSiteGallery() {
+  return apiFetch(`/api/public/properties/${PROPERTY_SLUG}/site-gallery`)
+}
+
+export function getEvents() {
+  return apiFetch(`/api/public/properties/${PROPERTY_SLUG}/events`)
+}
+
 export function requestPublicQuote(payload) {
   return apiFetch(`/api/public/properties/${PROPERTY_SLUG}/quote`, {
     method: 'POST',
@@ -15,10 +23,30 @@ export function requestPublicQuote(payload) {
   })
 }
 
+export function requestGuestPin(payload) {
+  return apiFetch('/api/guest-auth/request-pin', {
+    method: 'POST',
+    body: JSON.stringify({ propertySlug: PROPERTY_SLUG, ...payload }),
+  })
+}
+
+export function verifyGuestPin(payload) {
+  return apiFetch('/api/guest-auth/verify-pin', {
+    method: 'POST',
+    body: JSON.stringify({ propertySlug: PROPERTY_SLUG, ...payload }),
+  })
+}
+
 export function requestGuestQuote(payload, token) {
   return guestAuthorizedFetch('/api/guest/bookings/quote', token, {
     method: 'POST',
     body: JSON.stringify(payload),
+  })
+}
+
+export function getGuestRooms(token) {
+  return guestAuthorizedFetch('/api/guest/bookings/rooms', token, {
+    method: 'GET',
   })
 }
 
@@ -31,6 +59,13 @@ export function getCart(token) {
 export function getGuestBookings(token) {
   return guestAuthorizedFetch('/api/guest/bookings', token, {
     method: 'GET',
+  })
+}
+
+export function createBookingRequest(payload, token) {
+  return guestAuthorizedFetch('/api/guest/bookings/requests', token, {
+    method: 'POST',
+    body: JSON.stringify(payload),
   })
 }
 
@@ -57,6 +92,26 @@ export function createGuestPaymentOrder(payload, token) {
 
 export function verifyGuestPayment(payload, token) {
   return guestAuthorizedFetch('/api/guest/payments/verify', token, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export function getGuestEventBookings(token) {
+  return guestAuthorizedFetch('/api/guest/event-bookings', token, {
+    method: 'GET',
+  })
+}
+
+export function createEventBooking(payload, token) {
+  return guestAuthorizedFetch('/api/guest/event-bookings', token, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
+}
+
+export function verifyEventPayment(payload, token) {
+  return guestAuthorizedFetch('/api/guest/event-payments/verify', token, {
     method: 'POST',
     body: JSON.stringify(payload),
   })

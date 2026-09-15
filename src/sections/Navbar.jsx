@@ -35,6 +35,15 @@ export default function Navbar() {
   }, [open])
 
   useEffect(() => {
+    if (!open) return undefined
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
+  useEffect(() => {
     const openSignIn = () => setSignInOpen(true)
     const onAuth = () => {
       refresh()
@@ -54,7 +63,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className={`site-nav${scrolled ? ' is-scrolled' : ''}`}>
+      <header className={`site-nav${scrolled || open ? ' is-scrolled' : ''}${open ? ' is-menu-open' : ''}`}>
         <div className="nav-inner">
           <a href="#top" aria-label="Kushal Estate Stay - home" onClick={close}>
             <Logo />
@@ -85,7 +94,7 @@ export default function Navbar() {
           </nav>
           <button
             type="button"
-            className="nav-toggle"
+            className={`nav-toggle${open ? ' is-open' : ''}`}
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? 'Close menu' : 'Open menu'}
@@ -95,44 +104,76 @@ export default function Navbar() {
           </button>
         </div>
       </header>
+
+      <button
+        type="button"
+        className={`nav-backdrop${open ? ' is-open' : ''}`}
+        aria-label="Close menu"
+        tabIndex={open ? 0 : -1}
+        onClick={close}
+      />
+
       <div
         id="mobile-nav"
         className={`nav-drawer${open ? ' is-open' : ''}`}
         hidden={!open}
       >
-        {LINKS.map((link) => (
-          <a key={link.href} href={link.href} onClick={close}>
-            {link.label}
-          </a>
-        ))}
-        <a href="#cart" onClick={close}>
-          Cart{count ? ` (${count})` : ''}
-        </a>
-        {isSignedIn ? (
-          <button
-            type="button"
-            onClick={() => {
-              signOut()
-              close()
-            }}
-          >
-            Sign out
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={() => {
-              setSignInOpen(true)
-              close()
-            }}
-          >
-            Sign in
-          </button>
-        )}
-        <Button as="a" href="#stay" variant="ghost" onClick={close}>
-          Book
-        </Button>
+        <div className="nav-drawer-scroll">
+          <p className="nav-drawer-label">Explore</p>
+          <nav className="nav-drawer-links" aria-label="Mobile">
+            {LINKS.map((link) => (
+              <a key={link.href} href={link.href} onClick={close}>
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="nav-drawer-divider" />
+
+          <div className="nav-drawer-meta">
+            <a href="#cart" className="nav-drawer-action" onClick={close}>
+              <span className="nav-drawer-action-label">Cart</span>
+              {count > 0 ? (
+                <span className="nav-drawer-badge">{count}</span>
+              ) : (
+                <span className="nav-drawer-action-hint">View stays</span>
+              )}
+            </a>
+            {isSignedIn ? (
+              <button
+                type="button"
+                className="nav-drawer-action"
+                onClick={() => {
+                  signOut()
+                  close()
+                }}
+              >
+                <span className="nav-drawer-action-label">Sign out</span>
+                <span className="nav-drawer-action-hint">Guest session</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="nav-drawer-action nav-drawer-action--accent"
+                onClick={() => {
+                  setSignInOpen(true)
+                  close()
+                }}
+              >
+                <span className="nav-drawer-action-label">Sign in</span>
+                <span className="nav-drawer-action-hint">Continue with Google</span>
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="nav-drawer-footer">
+          <Button as="a" href="#stay" variant="primary" className="nav-drawer-book" onClick={close}>
+            Book a stay
+          </Button>
+        </div>
       </div>
+
       <SignInModal open={signInOpen} onClose={() => setSignInOpen(false)} />
     </>
   )

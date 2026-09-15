@@ -25,10 +25,13 @@ export class ApiError extends Error {
 }
 
 const viteApiBase = import.meta.env.VITE_API_BASE_URL
+// In Vite dev, call same-origin `/api` so the proxy handles CORS to Vara.
 export const API_BASE_URL = (
-  viteApiBase === undefined || viteApiBase === null
-    ? 'http://localhost:3000'
-    : String(viteApiBase)
+  import.meta.env.DEV
+    ? ''
+    : viteApiBase === undefined || viteApiBase === null || String(viteApiBase).trim() === ''
+      ? 'https://api.varalabs.in'
+      : String(viteApiBase)
 ).replace(/\/$/, '')
 
 export const PROPERTY_SLUG =
@@ -87,6 +90,8 @@ function guestAuthErrorMessage(status: number, data: unknown) {
   switch (status) {
     case 401:
       return 'Could not verify your Google account. Please try again.'
+    case 404:
+      return 'This property is not set up on Vara yet. Ask Sathwik to add kushal-estate-stay.'
     case 429:
       return 'Too many sign-in attempts. Please wait and try again.'
     case 503:
@@ -139,7 +144,11 @@ export async function apiFetch(
       throw new ApiError('Request timed out. Please try again.', 408, null)
     }
     if (error instanceof ApiError) throw error
-    throw new ApiError('Network error. Please check your connection.', 0, null)
+    throw new ApiError(
+      'Could not reach the booking API. If you are on localhost, restart the Vite server and try again.',
+      0,
+      null,
+    )
   } finally {
     clearTimeout(timer)
   }

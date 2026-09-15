@@ -6,9 +6,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
+      // Avoid browser CORS during local Google auth / guest API calls
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://api.varalabs.in',
         changeOrigin: true,
+        secure: true,
       },
     },
   },

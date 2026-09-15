@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   clearGuestToken,
   exchangeGoogleCredential,
@@ -11,6 +11,16 @@ export function useGuestAuth() {
   const [token, setToken] = useState(() => getGuestToken())
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const sync = () => setToken(getGuestToken())
+    window.addEventListener('guest-auth-changed', sync)
+    window.addEventListener('storage', sync)
+    return () => {
+      window.removeEventListener('guest-auth-changed', sync)
+      window.removeEventListener('storage', sync)
+    }
+  }, [])
 
   const signInWithGoogle = useCallback(async (credential) => {
     setBusy(true)

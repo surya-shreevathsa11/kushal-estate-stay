@@ -66,9 +66,12 @@ h3,
 h4 {
   font-family: var(--font-display);
   font-weight: 600;
-  line-height: 1.05;
+  /* Syne descenders (g, y, p) clip below ~1.12 on mobile WebKit */
+  line-height: 1.18;
   letter-spacing: -0.03em;
   margin: 0;
+  overflow: visible;
+  padding-block: 0.06em;
 }
 
 p {
@@ -139,6 +142,8 @@ ul {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   max-width: 12ch;
   color: var(--color-mist);
+  line-height: 1.16;
+  overflow: visible;
 }
 
 /* Legacy alias used by Stay markup */

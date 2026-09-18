@@ -6,9 +6,19 @@ import { prefersReducedMotion } from '../utils/video.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
+function isTouchViewport() {
+  if (typeof window === 'undefined') return true
+  return (
+    window.matchMedia('(hover: none), (pointer: coarse)').matches ||
+    'ontouchstart' in window ||
+    (navigator.maxTouchPoints || 0) > 0
+  )
+}
+
 export function useSmoothScroll() {
   useEffect(() => {
-    if (prefersReducedMotion()) return undefined
+    // Lenis + touch breaks GSAP pin/scrub (gallery) on mobile after deploy.
+    if (prefersReducedMotion() || isTouchViewport()) return undefined
 
     const lenis = new Lenis({
       duration: 1.1,

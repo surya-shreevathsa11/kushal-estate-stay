@@ -9,6 +9,7 @@
 /// <reference types="vite/client" />
 
 export const GUEST_TOKEN_KEY = 'kushal_guest_token'
+export const GUEST_PROFILE_KEY = 'kushal_guest_profile'
 
 const REQUEST_TIMEOUT_MS = 12000
 
@@ -62,6 +63,98 @@ export function extractGuestAuthToken(payload: unknown): string | null {
   )
 }
 
+export type GuestProfile = {
+  name?: string
+  email?: string
+  picture?: string
+}
+
+function pickProfileFields(source: Record<string, unknown> | null): GuestProfile {
+  if (!source) return {}
+  const guest =
+    source.guest && typeof source.guest === 'object'
+      ? (source.guest as Record<string, unknown>)
+      : null
+  const user =
+    source.user && typeof source.user === 'object'
+      ? (source.user as Record<string, unknown>)
+      : null
+  const from = guest || user || source
+  const name =
+    (typeof from.name === 'string' && from.name) ||
+    (typeof from.fullName === 'string' && from.fullName) ||
+    undefined
+  const email = typeof from.email === 'string' ? from.email : undefined
+  const picture =
+    (typeof from.picture === 'string' && from.picture) ||
+    (typeof from.avatar === 'string' && from.avatar) ||
+    (typeof from.photoUrl === 'string' && from.photoUrl) ||
+    (typeof from.imageUrl === 'string' && from.imageUrl) ||
+    undefined
+  return { name, email, picture }
+}
+
+/** Decode Google ID token payload for display (picture/name). Not a security check. */
+export function decodeGoogleCredentialProfile(
+  credential: string,
+): GuestProfile | null {
+  try {
+    const part = String(credential).split('.')[1]
+    if (!part) return null
+    const normalized = part.replace(/-/g, '+').replace(/_/g, '/')
+    const padded = normalized.padEnd(
+      normalized.length + ((4 - (normalized.length % 4)) % 4),
+      '=',
+    )
+    const json = atob(padded)
+    const payload = JSON.parse(json) as Record<string, unknown>
+    return pickProfileFields(payload)
+  } catch {
+    return null
+  }
+}
+
+export function extractGuestProfile(payload: unknown): GuestProfile {
+  if (!payload || typeof payload !== 'object') return {}
+  const p = payload as Record<string, unknown>
+  const nested =
+    p.data && typeof p.data === 'object'
+      ? (p.data as Record<string, unknown>)
+      : null
+  return {
+    ...pickProfileFields(p),
+    ...pickProfileFields(nested),
+  }
+}
+
+export function getGuestProfile(): GuestProfile | null {
+  try {
+    const raw = localStorage.getItem(GUEST_PROFILE_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as GuestProfile
+    if (!parsed || typeof parsed !== 'object') return null
+    return parsed
+  } catch {
+    return null
+  }
+}
+
+export function setGuestProfile(profile: GuestProfile) {
+  try {
+    localStorage.setItem(GUEST_PROFILE_KEY, JSON.stringify(profile))
+  } catch {
+    /* ignore quota / private mode */
+  }
+}
+
+export function clearGuestProfile() {
+  try {
+    localStorage.removeItem(GUEST_PROFILE_KEY)
+  } catch {
+    /* ignore */
+  }
+}
+
 export function getGuestToken(): string | null {
   try {
     return localStorage.getItem(GUEST_TOKEN_KEY)
@@ -76,6 +169,7 @@ export function setGuestToken(token: string) {
 
 export function clearGuestToken() {
   localStorage.removeItem(GUEST_TOKEN_KEY)
+  clearGuestProfile()
 }
 
 function guestAuthErrorMessage(status: number, data: unknown) {

@@ -10,15 +10,7 @@ import {
   removeCartItem,
 } from '../services/api.js'
 import { formatInr } from '../utils/bookings'
-
-const TERMS_BULLETS = [
-  'Submitting a request does not charge you. Payment opens only after the estate approves your stay.',
-  'Check-in and check-out times will be confirmed with your booking.',
-  'Only registered guests may stay on the property.',
-  'Guests are responsible for any damages caused during their stay.',
-  'Please cancel through your guest account or by contacting the estate if plans change.',
-  'Quiet hours and house guidelines apply once you arrive.',
-]
+import { CHECKOUT_TERMS_BULLETS } from '../sections/Policies'
 
 function formatItemDates(item) {
   const checkIn = item.checkIn || item.check_in || item.startDate
@@ -217,7 +209,7 @@ function RequestBookingModal({ open, onClose, onRequested, initialContact }) {
             <div className="checkout-terms-modal-body">
               <p>By submitting this request, you agree to the following:</p>
               <ul className="checkout-terms-list">
-                {TERMS_BULLETS.map((line) => (
+                {CHECKOUT_TERMS_BULLETS.map((line) => (
                   <li key={line}>{line}</li>
                 ))}
               </ul>

@@ -6,6 +6,7 @@ const CHAPTERS = [
   { href: '#gallery', label: 'Light', index: '03' },
   { href: '#reviews', label: 'Notes', index: '04' },
   { href: '#location', label: 'Map', index: '05' },
+  { href: '#policies', label: 'Rules', index: '06' },
 ]
 
 export default function ChapterRail() {

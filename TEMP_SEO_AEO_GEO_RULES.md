@@ -6,11 +6,11 @@ Agent reminder for Kushal Estate Stay copy work on `content-seo-aeo-geo`.
 ## Standing rules
 
 1. Prefer place-specific facts over abstract mood copy:
-   - Brand: Kushal Estate Stay
-   - Map place: Waterside Homestay
+   - Brand / map place: Kushal Estate Stay (do not use the old Google Maps name)
    - River: Harangi backwaters
    - Region: Coorg (Kodagu), Karnataka
    - Stay inventory: A-frame cabins, individual rooms, dorm
+   - Never mention the former listing name in UI, meta, or docs
 2. When the user supplies a line, you may lightly tighten it for clarity and search intent. Do not invent amenities, history, or claims we cannot verify.
 3. No em dashes (`—` or `–`). Use commas, periods, or plain hyphens.
 4. Keep the site H1 as **Kushal Estate Stay**. Weave location into supporting copy and meta, not into a competing H1.

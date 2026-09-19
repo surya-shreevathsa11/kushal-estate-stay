@@ -35,9 +35,9 @@ export default function About() {
 
         <div className="about-copy">
           <p className="lede">
-            Kushal Estate Stay is our riverside homestay at Waterside Homestay on
-            the Harangi backwaters in Coorg (Kodagu), Karnataka. Mornings often
-            start with coffee in the air and a quiet stretch of water outside.
+            Kushal Estate Stay is our riverside homestay on the Harangi
+            backwaters in Coorg (Kodagu), Karnataka. Mornings often start with
+            coffee in the air and a quiet stretch of water outside.
           </p>
           <p>
             Come for a calm break from the city: A-frame cabins facing the view,

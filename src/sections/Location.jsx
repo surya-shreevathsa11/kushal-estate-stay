@@ -33,7 +33,7 @@ export default function Location() {
         <h2>Find us by the water.</h2>
         <p className="lede">
           On the Harangi backwaters in Karnataka. Open the map for directions to
-          Waterside Homestay.
+          Kushal Estate Stay.
         </p>
         <p className="location-region">{HOMESTAY_LOCATION.region}</p>
         <Button

@@ -155,13 +155,12 @@ export default function Gallery() {
       <div className="gallery-pin">
         <div className="gallery-head">
           <p className="chapter-label">Gallery · 03</p>
-          <h2>Harangi views from Kushal Estate Stay.</h2>
+          <h2>Along the Harangi at Kushal Estate Stay.</h2>
           <p className="lede">
-            Photos from our Coorg riverside stay on the Harangi backwaters: A-frame
-            cabins, rooms, and the waterline. Live images load when ready; soft
-            color frames stand in until then.
+            Morning mist on the backwaters, A-frame porches, and the path down to
+            the water in Coorg. A short look at how the stay sits on the river.
           </p>
-          <p className="gallery-hint">Scroll to browse the riverside frames</p>
+          <p className="gallery-hint">Scroll to move along the frames</p>
         </div>
 
         <div className="gallery-viewport">

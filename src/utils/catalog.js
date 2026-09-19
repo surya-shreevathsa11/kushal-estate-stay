@@ -8,24 +8,24 @@ export const STATIC_ROOMS = [
     roomId: 'kushal-a-frame-1',
     sku: 'kushal-a-frame',
     type: 'A-frame cabin',
-    name: 'A-frame cabin 1',
+    name: 'Harangi Riverside A-frame Cabin 1',
     capacityMin: 1,
     capacityMax: 4,
     capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
     summary:
-      'Peaked A-frame cabin toward the water - private stay for up to four guests.',
+      'Private peaked A-frame cabin by the Harangi water in Coorg, for up to four guests.',
   },
   {
     id: 'a-frame-2',
     roomId: 'kushal-a-frame-2',
     sku: 'kushal-a-frame',
     type: 'A-frame cabin',
-    name: 'A-frame cabin 2',
+    name: 'Harangi Riverside A-frame Cabin 2',
     capacityMin: 1,
     capacityMax: 4,
     capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
     summary:
-      'Peaked A-frame cabin toward the water - private stay for up to four guests.',
+      'Private peaked A-frame cabin by the Harangi water in Coorg, for up to four guests.',
   },
   {
     id: 'dorm-1',

@@ -155,12 +155,13 @@ export default function Gallery() {
       <div className="gallery-pin">
         <div className="gallery-head">
           <p className="chapter-label">Gallery · 03</p>
-          <h2>Light on water, wood, and path.</h2>
+          <h2>Harangi views from Kushal Estate Stay.</h2>
           <p className="lede">
-            Frames from the estate waterline - live gallery when Vara provides
-            images, tonal placeholders until then.
+            Photos from our Coorg riverside stay on the Harangi backwaters: A-frame
+            cabins, rooms, and the waterline. Live images load when ready; soft
+            color frames stand in until then.
           </p>
-          <p className="gallery-hint">Scroll to drift along the waterline</p>
+          <p className="gallery-hint">Scroll to browse the riverside frames</p>
         </div>
 
         <div className="gallery-viewport">

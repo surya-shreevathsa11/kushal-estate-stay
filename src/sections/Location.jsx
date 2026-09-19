@@ -32,8 +32,8 @@ export default function Location() {
         <p className="chapter-label">Location · 05</p>
         <h2>Find us by the water.</h2>
         <p className="lede">
-          On the Harangi backwaters in Karnataka. Open the map for directions —
-          the exact pin will be set once the location is confirmed.
+          On the Harangi backwaters in Karnataka. Open the map for directions to
+          Waterside Homestay.
         </p>
         <p className="location-region">{HOMESTAY_LOCATION.region}</p>
         <Button

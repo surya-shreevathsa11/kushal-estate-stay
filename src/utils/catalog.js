@@ -1,6 +1,6 @@
 /**
  * Static room catalog until Vara rooms API is live.
- * Each entry is one bookable unit (matches inventory: 3 A-frames, 1 dorm, 4 rooms).
+ * Each entry is one bookable unit (matches inventory: 2 A-frames, 1 dorm, 4 rooms).
  */
 export const STATIC_ROOMS = [
   {
@@ -21,18 +21,6 @@ export const STATIC_ROOMS = [
     sku: 'kushal-a-frame',
     type: 'A-frame cabin',
     name: 'A-frame cabin 2',
-    capacityMin: 1,
-    capacityMax: 4,
-    capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
-    summary:
-      'Peaked A-frame cabin toward the water - private stay for up to four guests.',
-  },
-  {
-    id: 'a-frame-3',
-    roomId: 'kushal-a-frame-3',
-    sku: 'kushal-a-frame',
-    type: 'A-frame cabin',
-    name: 'A-frame cabin 3',
     capacityMin: 1,
     capacityMax: 4,
     capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
@@ -103,7 +91,7 @@ export const STATIC_ROOMS = [
 
 /** Inventory summary for marketing copy (not the bookable list). */
 export const ROOM_INVENTORY_SUMMARY = [
-  { label: 'A-frame cabins', units: 3, capacity: 'Up to 4 guests each' },
+  { label: 'A-frame cabins', units: 2, capacity: 'Up to 4 guests each' },
   { label: 'Dormitory', units: 1, capacity: '8-16 guests' },
   { label: 'Individual rooms', units: 4, capacity: 'Up to 4 guests each' },
 ]

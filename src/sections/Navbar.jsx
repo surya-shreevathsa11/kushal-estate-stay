@@ -11,7 +11,6 @@ const LINKS = [
   { href: '#gallery', label: 'Gallery' },
   { href: '#reviews', label: 'Reviews' },
   { href: '#location', label: 'Location' },
-  { href: '#policies', label: 'Policies' },
 ]
 
 function profileInitials(profile) {

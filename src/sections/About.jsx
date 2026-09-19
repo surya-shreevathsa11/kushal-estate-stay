@@ -18,7 +18,7 @@ export default function About() {
           </div>
           <div className="about-meta-item">
             <dt>Region</dt>
-            <dd>Karnataka</dd>
+            <dd>Coorg · Karnataka</dd>
           </div>
           <div className="about-meta-item">
             <dt>Coords</dt>
@@ -30,23 +30,22 @@ export default function About() {
 
         <div className="about-statement">
           <p className="chapter-label">About</p>
-          <h2>We began with the water.</h2>
+          <h2>A Coorg stay by the Harangi.</h2>
         </div>
 
         <div className="about-copy">
           <p className="lede">
-            Kushal Estate Stay sits on the backwaters of the Harangi — still water,
-            hillside green, and evenings that refuse to hurry.
+            Kushal Estate Stay is our riverside homestay at Waterside Homestay on
+            the Harangi backwaters in Coorg (Kodagu), Karnataka. Mornings often
+            start with coffee in the air and a quiet stretch of water outside.
           </p>
           <p>
-            The estate is made for unhurried stays: A-frame cabins toward the view,
-            quiet individual rooms, and a dorm when the whole group wants to arrive
-            together. Architecture stays low and regional; the river keeps the last
-            word.
+            Come for a calm break from the city: A-frame cabins facing the view,
+            private rooms for smaller stays, and a dorm when the whole group
+            arrives together. Book the dates that fit, then settle into the
+            river pace.
           </p>
-          <p className="aphorism">
-            If it doesn’t belong to the landscape, we don’t force it.
-          </p>
+          <p className="aphorism">Coffee in the air, calm in the soul.</p>
         </div>
       </div>
     </section>

@@ -2,14 +2,14 @@ const SITE_ORIGIN = 'https://www.kushalestatestay.com'
 const OG_IMAGE = `${SITE_ORIGIN}/kushalestatestay-share.jpeg`
 
 const SITE = {
-  homeTitle: 'Kushal Estate Stay | Harangi Backwaters — Karnataka, India',
+  homeTitle: 'Kushal Estate Stay | Harangi Backwaters Homestay in Coorg, Karnataka',
   homeDescription:
-    'Kushal Estate Stay on the Harangi backwaters in Karnataka—A-frame cabins, quiet rooms, and a dorm for gatherings. Slow stays between night water and hillside green.',
+    'Kushal Estate Stay at Waterside Homestay on the Harangi backwaters in Coorg. Coffee in the air, calm in the soul. Book A-frame cabins, private rooms, or a dorm for your group.',
   cartTitle: 'Cart - Kushal Estate Stay',
   bookingsTitle: 'My bookings - Kushal Estate Stay',
   ogImage: OG_IMAGE,
   ogImageAlt:
-    'Kushal Estate Stay—homestay on the Harangi river backwaters in Karnataka',
+    'Kushal Estate Stay riverside homestay on the Harangi backwaters in Coorg, Karnataka',
 }
 
 function setMeta(attr, key, value) {

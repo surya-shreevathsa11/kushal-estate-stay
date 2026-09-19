@@ -59,14 +59,15 @@ export default function Hero() {
           <p className="hero-coords">{coords}</p>
           <h1 className="hero-brand">Kushal Estate Stay</h1>
           <p className="hero-line">
-            Night water, hillside green, and stays that move at the river’s pace.
+            Coffee in the air, calm in the soul. A riverside homestay on the
+            Harangi backwaters in Coorg.
           </p>
           <div className="hero-actions">
             <Button as="a" href="#stay" variant="primary">
               Check availability
             </Button>
             <Button as="a" href="#about" variant="ghost">
-              Read the land
+              About the stay
             </Button>
           </div>
           <div className="hero-waterline" aria-hidden="true" />

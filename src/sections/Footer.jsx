@@ -12,22 +12,20 @@ export default function Footer() {
         <div>
           <p className="footer-brand">Kushal Estate Stay</p>
           <p className="footer-brand-copy">
-            A private homestay on the backwaters of the Harangi river,
-            Karnataka. Content and contact details will be updated by the owners.
+            Kushal Estate Stay is a riverside homestay on the Harangi backwaters
+            in Coorg, Karnataka. Book A-frame cabins, private rooms, or a dorm
+            for your group.
           </p>
         </div>
         <div>
           <h3>Contact</h3>
           <ul>
             <li>
-              <a href="mailto:hello@kushalestatestay.example">
-                hello@kushalestatestay.example
+              <a href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer">
+                WhatsApp +91 94819 76321
               </a>
             </li>
-            <li>
-              <a href="tel:+910000000000">+91 00000 00000</a>
-            </li>
-            <li>Harangi river backwaters</li>
+            <li>Harangi backwaters · Coorg, Karnataka</li>
           </ul>
         </div>
         <div>

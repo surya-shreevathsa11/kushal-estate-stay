@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "seed:rooms": "node --env-file=.env scripts/seedRooms.js"
   },
   "dependencies": {
     "framer-motion": "^12.38.0",
@@ -26,6 +27,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
+    "mongoose": "^9.10.1",
     "vite": "^8.0.10"
   }
 }

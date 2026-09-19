@@ -28,8 +28,8 @@ export default function Reviews() {
           <p className="chapter-label">Reviews · 04</p>
           <h2>What guests say about Kushal Estate Stay.</h2>
           <p className="lede">
-            Reviews from stays by the Harangi backwaters in Coorg, from coffee
-            plantations and pepper estates to quiet mornings on the water.
+            Guest reviews from Kushal Estate Stay on the Harangi backwaters in
+            Coorg.
           </p>
         </div>
 

@@ -1394,24 +1394,22 @@
   position: relative;
   margin: 0;
   padding: 0;
-  min-height: clamp(12rem, 24vw, 16rem);
+  min-height: 0;
   display: grid;
   align-content: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
   animation: reviews-feature-in 0.55s var(--ease-out);
 }
 
 .reviews-feature .review-quote {
   margin: 0;
-  max-width: 22ch;
-  font-family: var(--font-display);
-  font-size: clamp(1.85rem, 4.2vw, 3.15rem);
-  font-weight: 600;
-  line-height: 1.22;
-  letter-spacing: -0.03em;
+  max-width: 42rem;
+  font-family: var(--font-body);
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: 0;
   color: var(--color-mist);
-  overflow: visible;
-  padding-bottom: 0.06em;
 }
 
 .reviews-feature .review-meta {

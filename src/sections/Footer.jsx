@@ -47,9 +47,6 @@ export default function Footer() {
               <a href="#location">Location</a>
             </li>
             <li>
-              <a href="#policies">Policies</a>
-            </li>
-            <li>
               <a href="#my-bookings">My bookings</a>
             </li>
           </ul>

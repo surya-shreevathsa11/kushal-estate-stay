@@ -108,20 +108,37 @@ export const GALLERY_ITEMS = [
 export const REVIEWS = [
   {
     id: 1,
-    quote: 'We woke to mist on the Harangi and a stillness that made the city feel far away.',
-    name: 'Ananya R.',
-    detail: 'Weekend · A-frame',
+    quote:
+      'It is really nice, surrounded by coffee and pepper plantation, with water flowing in the backyard. They serve really good food and the homestay is well maintained. A peaceful and refreshing stay for us.',
+    name: 'Sachith.V. Reddy',
+    detail: 'Guest review',
   },
   {
     id: 2,
-    quote: 'The dorm held our whole group without feeling crowded - evenings by the water were the highlight.',
-    name: 'Vikram & friends',
-    detail: 'Group stay · Dorm',
+    quote:
+      'The place sits about 150 metres inside an 18-acre betel nut and pepper estate beside the backwaters. It is very well maintained, and the campfire was ready when we arrived. Mr. Lokesh was an amazing host who took our last-minute requests with a smile. Do not miss the early morning walk to the small private pond. Mist on the water was pure bliss.',
+    name: 'Naveen B L',
+    detail: 'Guest review',
   },
   {
     id: 3,
-    quote: 'Quiet rooms, kind hosts, and a landscape that asks you to slow down. We will return.',
-    name: 'Meera S.',
-    detail: 'Family · Individual room',
+    quote:
+      'Great location and an even better atmosphere. All basic amenities are available here. Perfect for a laid-back weekend, and the food is simply awesome with different varieties on different days.',
+    name: 'GiRish PaaNdi',
+    detail: 'Guest review',
+  },
+  {
+    id: 4,
+    quote:
+      'Nice experience after a long time. We spent a really good time in Coorg, and this place made our trip easy to plan. We enjoyed the stay. Thanks Girish for your help and coordination. Hope to see you again.',
+    name: 'sharath babu',
+    detail: 'Guest review',
+  },
+  {
+    id: 5,
+    quote:
+      'It was an amazing experience, from the place to the host and the food. A great spot to celebrate the new year. The host was cooperative and helpful throughout.',
+    name: 'blue bird',
+    detail: 'Guest review',
   },
 ]

@@ -358,9 +358,9 @@ export default function Stay() {
           <div className="rule" style={{ background: 'var(--color-sand)' }} />
           <h2>Choose your room.</h2>
           <p className="lede">
-            Cabins toward the water, quiet rooms for slower mornings, and a dorm
-            when the whole group arrives together. Pick a stay, set your dates,
-            and add it to your cart.
+            At Kushal Estate Stay on the Harangi backwaters in Coorg, book an
+            A-frame cabin by the water, a private room, or a dorm for the whole
+            group. Pick your stay, set the dates, and add it to your cart.
           </p>
         </div>
 

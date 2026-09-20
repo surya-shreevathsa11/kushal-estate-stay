@@ -1,6 +1,8 @@
+import kushalEstateHero from '../assets/kushalestate.mp4'
+
+/** Original estate hero reel — imported so Vite serves the file unchanged (no re-encode). */
 export const HERO_VIDEO = {
-  src: '/drone-hero.mp4',
-  poster: '/drone-hero-poster.jpg',
+  src: kushalEstateHero,
 }
 
 export function prefersReducedMotion() {

@@ -39,13 +39,13 @@ export default function Hero() {
         {videoOk ? (
           <video
             ref={videoRef}
+            className="hero-video"
             src={HERO_VIDEO.src}
-            poster={HERO_VIDEO.poster}
             muted
             loop
             playsInline
             autoPlay
-            preload="metadata"
+            preload="auto"
             onError={() => setVideoOk(false)}
           />
         ) : (

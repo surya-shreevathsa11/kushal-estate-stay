@@ -6,7 +6,7 @@ import { useGuestAuth } from '../hooks/useGuestAuth'
 /**
  * Shared chrome for cart / bookings pages (includes Google sign-in modal).
  */
-export function GuestChrome({ title, lede, children }) {
+export function GuestChrome({ title, lede, children, className = '', current = '' }) {
   const { isSignedIn, signOut } = useGuestAuth()
   const [signInOpen, setSignInOpen] = useState(false)
 
@@ -17,7 +17,7 @@ export function GuestChrome({ title, lede, children }) {
   }, [])
 
   return (
-    <div className="page-shell guest-page">
+    <div className={['page-shell', 'guest-page', className].filter(Boolean).join(' ')}>
       <div className="shell guest-page-inner">
         <header className="guest-topbar">
           <a href="#top" className="guest-brand" aria-label="Kushal Estate Stay home">
@@ -25,8 +25,15 @@ export function GuestChrome({ title, lede, children }) {
           </a>
           <nav className="guest-topbar-links" aria-label="Guest">
             <a href="#stay">Stay</a>
-            <a href="#cart">Cart</a>
-            <a href="#my-bookings">Bookings</a>
+            <a href="#cart" aria-current={current === 'cart' ? 'page' : undefined}>
+              Cart
+            </a>
+            <a
+              href="#my-bookings"
+              aria-current={current === 'bookings' ? 'page' : undefined}
+            >
+              Bookings
+            </a>
             {isSignedIn ? (
               <button type="button" className="guest-text-btn" onClick={() => signOut()}>
                 Sign out

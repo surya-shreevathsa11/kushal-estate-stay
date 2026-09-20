@@ -12,11 +12,40 @@ import {
 import { formatInr } from '../utils/bookings'
 import { CHECKOUT_TERMS_BULLETS } from '../sections/Policies'
 
+function formatCartDay(value) {
+  if (value == null || value === '') return null
+  const d = new Date(value)
+  if (Number.isNaN(d.getTime())) {
+    const s = String(value)
+    return /^\d{4}-\d{2}-\d{2}/.test(s) ? s.slice(0, 10) : s
+  }
+  return d.toLocaleDateString('en-IN', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
+}
+
+function nightsBetween(checkIn, checkOut) {
+  const a = new Date(checkIn)
+  const b = new Date(checkOut)
+  if (Number.isNaN(a.getTime()) || Number.isNaN(b.getTime())) return null
+  const nights = Math.round((b.getTime() - a.getTime()) / 86400000)
+  return nights > 0 ? nights : null
+}
+
 function formatItemDates(item) {
   const checkIn = item.checkIn || item.check_in || item.startDate
   const checkOut = item.checkOut || item.check_out || item.endDate
-  if (checkIn && checkOut) return `${checkIn} → ${checkOut}`
-  if (checkIn) return `From ${checkIn}`
+  const from = formatCartDay(checkIn)
+  const to = formatCartDay(checkOut)
+  if (from && to) {
+    const nights = nightsBetween(checkIn, checkOut)
+    const range = `${from} – ${to}`
+    if (nights == null) return range
+    return `${range} · ${nights} night${nights === 1 ? '' : 's'}`
+  }
+  if (from) return `From ${from}`
   return 'Dates to confirm'
 }
 
@@ -332,6 +361,8 @@ export default function CartPage() {
 
   return (
     <GuestChrome
+      className="guest-page--cart"
+      current="cart"
       title="Your cart"
       lede="Review stays, then request to book. You pay with Razorpay only after the estate approves."
     >
@@ -411,14 +442,16 @@ export default function CartPage() {
                         item.roomId ||
                         'Stay'}
                     </h2>
-                    <p className="guest-card-meta">{formatItemDates(item)}</p>
+                    <p className="guest-card-meta guest-card-meta--dates">
+                      {formatItemDates(item)}
+                    </p>
                     {(item.adults != null || item.guests != null) && (
-                      <p className="guest-card-meta">
+                      <p className="guest-card-meta guest-card-meta--guests">
                         {item.adults ?? item.guests} guests
                       </p>
                     )}
                     {item.price != null || item.totalPrice != null ? (
-                      <p className="guest-card-meta">
+                      <p className="guest-card-price">
                         {formatInr(item.price ?? item.totalPrice)}
                       </p>
                     ) : null}
@@ -445,7 +478,7 @@ export default function CartPage() {
                 </div>
               ) : null}
               {primaryPayable != null ? (
-                <div>
+                <div className="cart-summary-payable">
                   <dt>
                     Payable after approval
                     {primaryPercent != null ? ` (${primaryPercent}%)` : ''}

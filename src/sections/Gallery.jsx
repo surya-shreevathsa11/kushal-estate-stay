@@ -22,7 +22,9 @@ function normalizeGallery(data) {
             ? data.siteGallery.images
             : null
   if (!raw?.length) return null
-  return raw.map((item, index) => ({
+  return raw
+    .map((item) => (typeof item === 'string' ? { src: item } : item))
+    .map((item, index) => ({
     id: item.id || item.key || `gallery-${index}`,
     label: item.label || item.title || item.caption || `Frame ${index + 1}`,
     tone: item.tone || item.color || (index % 2 === 0 ? '#5B0E14' : '#1C1412'),

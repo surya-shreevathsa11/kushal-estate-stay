@@ -368,16 +368,17 @@ export default function Stay() {
 
         <div className="stay-grid" ref={gridRef}>
           {list.map((room, index) => {
-            const typeLabel = room.type || room.sku || 'Stay'
             return (
               <article className="stay-card" key={roomKey(room) || index}>
                 <div className="stay-card-media" aria-hidden="true">
+                  {room.images?.banner ? (
+                    <img src={room.images.banner} alt="" loading="lazy" />
+                  ) : null}
                   <span className="stay-card-index">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>
                 <div className="stay-card-body">
-                  <p className="stay-card-type">{typeLabel}</p>
                   <h3>{room.name || room.roomName || `Room ${index + 1}`}</h3>
                   <p className="stay-card-copy">
                     {room.summary || room.description || 'Details coming soon.'}

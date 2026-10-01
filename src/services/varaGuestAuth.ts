@@ -25,15 +25,9 @@ export class ApiError extends Error {
   }
 }
 
-const viteApiBase = import.meta.env.VITE_API_BASE_URL
-// In Vite dev, call same-origin `/api` so the proxy handles CORS to Vara.
-export const API_BASE_URL = (
-  import.meta.env.DEV
-    ? ''
-    : viteApiBase === undefined || viteApiBase === null || String(viteApiBase).trim() === ''
-      ? 'https://api.varalabs.in'
-      : String(viteApiBase)
-).replace(/\/$/, '')
+// Always call same-origin `/api`: Vite proxy (dev) and vercel.json rewrite (prod)
+// forward to Vara, which sends no CORS headers.
+export const API_BASE_URL = ''
 
 export const PROPERTY_SLUG =
   import.meta.env.VITE_PROPERTY_SLUG || 'kushal-estate-stay'

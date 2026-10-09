@@ -1519,6 +1519,8 @@
 }
 
 .gallery-frame .swatch {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -1546,6 +1548,10 @@
   .gallery-frame:nth-child(even) {
     aspect-ratio: 4 / 5;
     width: min(72vw, 26rem, calc(var(--gallery-frame-max-h) * 4 / 5));
+  }
+
+  .gallery-frame .swatch {
+    object-fit: cover;
   }
 }
 

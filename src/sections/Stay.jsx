@@ -521,7 +521,6 @@ export default function Stay() {
                   </span>
                 </button>
                 <div className="stay-card-body">
-                  <p className="stay-card-type">{typeLabel}</p>
                   <h3>{room.name || room.roomName || `Room ${index + 1}`}</h3>
                   <p className="stay-card-copy">
                     {room.summary || room.description || 'Details coming soon.'}

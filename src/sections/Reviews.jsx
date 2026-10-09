@@ -26,9 +26,10 @@ export default function Reviews() {
       <div className="shell reviews-layout">
         <div className="reviews-intro" ref={introRef}>
           <p className="chapter-label">Reviews · 04</p>
-          <h2>Notes from the water.</h2>
+          <h2>What guests say about Kushal Estate Stay.</h2>
           <p className="lede">
-            Quiet mornings, long evenings, and the river in between.
+            Guest reviews from Kushal Estate Stay on the Harangi backwaters in
+            Coorg.
           </p>
         </div>
 

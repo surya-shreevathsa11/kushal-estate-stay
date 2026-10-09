@@ -32,8 +32,6 @@ function roomKey(room) {
   return room.roomId ?? room.id ?? room.sku ?? room.name
 }
 
-const HIDDEN_ROOM_IDS = new Set(['kushal-room-4', 'room-4'])
-
 function roomIdentity(room) {
   return String(room?.roomId ?? room?.id ?? room?.sku ?? '')
 }
@@ -47,7 +45,6 @@ function roomPhotos(room) {
 
 function presentRoom(room) {
   const id = roomIdentity(room)
-  if (HIDDEN_ROOM_IDS.has(id)) return null
   if (id !== 'kushal-room-3' && id !== 'room-3') return room
   return {
     ...room,

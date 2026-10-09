@@ -72,13 +72,13 @@ Client: `src/services/api.js` + `src/services/varaGuestAuth.ts`. Checkout UI: `s
 
 ### Suggested Vara room SKUs / units
 
-Create **8 bookable rooms** (not 3 types only):
+Create **6 bookable rooms** (not 3 types only):
 
 | Unit | Suggested `roomId` | Capacity |
 |------|--------------------|----------|
-| A-frame 1-3 | `kushal-a-frame-1` … `-3` | max 4 |
+| A-frame 1-2 | `kushal-a-frame-1` … `-2` | max 4 |
 | Dormitory | `kushal-dorm-1` | min 8 · max 16 |
-| Individual 1-4 | `kushal-room-1` … `-4` | max 4 |
+| Individual 1-3 | `kushal-room-1` … `-3` | rooms 1–2 max 4; room 3 max 2 |
 
 Static fallback list: `src/utils/catalog.js` (`STATIC_ROOMS`).
 

@@ -33,7 +33,8 @@ if (bad.length) throw new Error(`No Vara type mapped for: ${bad.map((d) => d.roo
 try {
   await mongoose.connect(MONGODB_URI, { dbName: DB_NAME })
   // Raw collection: the Room model lives in the Vara backend, not this repo.
-  const result = await mongoose.connection.collection('rooms').bulkWrite(
+  const rooms = mongoose.connection.collection('rooms')
+  const result = await rooms.bulkWrite(
     docs.map((doc) => ({
       updateOne: {
         filter: { roomId: doc.roomId, propertyId: doc.propertyId },
@@ -42,7 +43,12 @@ try {
       },
     })),
   )
+  const removed = await rooms.deleteMany({
+    propertyId: PROPERTY_ID,
+    roomId: { $in: ['kushal-room-4', 'room-4'] },
+  })
   console.log('Rooms seeded successfully', result)
+  console.log('Removed individual room 4', { deletedCount: removed.deletedCount })
 } catch (error) {
   console.error('Failed to seed rooms:', error)
   process.exitCode = 1

@@ -32,6 +32,39 @@ function roomKey(room) {
   return room.roomId ?? room.id ?? room.sku ?? room.name
 }
 
+const HIDDEN_ROOM_IDS = new Set(['kushal-room-4', 'room-4'])
+
+function roomIdentity(room) {
+  return String(room?.roomId ?? room?.id ?? room?.sku ?? '')
+}
+
+function roomPhotos(room) {
+  const images = room?.images && typeof room.images === 'object' ? room.images : {}
+  const banner = images.banner || room?.banner || room?.image || ''
+  const gallery = Array.isArray(images.gallery) ? images.gallery : []
+  return [...new Set([banner, ...gallery].filter(Boolean))]
+}
+
+function presentRoom(room) {
+  const id = roomIdentity(room)
+  if (HIDDEN_ROOM_IDS.has(id)) return null
+  if (id !== 'kushal-room-3' && id !== 'room-3') return room
+  return {
+    ...room,
+    capacityMin: 1,
+    capacityMax: 2,
+    capacity: {
+      ...(room.capacity && typeof room.capacity === 'object' ? room.capacity : {}),
+      minAdults: 1,
+      maxAdults: 2,
+      maxChildren: 0,
+      maxTotal: 2,
+    },
+    summary: 'Quiet individual room for two - simple, restful, close to the river.',
+    description: 'Quiet individual room for two - simple, restful, close to the river.',
+  }
+}
+
 function roomCapacityBounds(room) {
   const max = Math.max(
     1,
@@ -73,6 +106,101 @@ function isQuoteUnavailable(quote) {
   if (quote.available === false || quote.isAvailable === false) return true
   const s = String(quote.status ?? quote.availability ?? '').toLowerCase()
   return s === 'unavailable' || s === 'sold_out' || s === 'sold out' || s === 'full'
+}
+
+function RoomGallery({ room, open, onClose }) {
+  const photos = roomPhotos(room)
+  const [index, setIndex] = useState(0)
+  const title = room?.name || room?.roomName || 'Stay'
+
+  useEffect(() => {
+    if (open) setIndex(0)
+  }, [open, room])
+
+  useEffect(() => {
+    if (!open) return undefined
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowRight') setIndex((i) => (photos.length ? (i + 1) % photos.length : 0))
+      if (e.key === 'ArrowLeft') {
+        setIndex((i) => (photos.length ? (i - 1 + photos.length) % photos.length : 0))
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = prev
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [open, onClose, photos.length])
+
+  if (!open || !room || !photos.length) return null
+
+  const go = (delta) => {
+    setIndex((i) => (i + delta + photos.length) % photos.length)
+  }
+
+  return createPortal(
+    <div
+      className="room-gallery-root"
+      role="presentation"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
+    >
+      <div
+        className="room-gallery"
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${title} photos`}
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        <header className="room-gallery-bar">
+          <div>
+            <p className="room-gallery-kicker">Photos</p>
+            <h2>{title}</h2>
+          </div>
+          <button type="button" className="room-gallery-close" onClick={onClose} aria-label="Close photos">
+            ×
+          </button>
+        </header>
+        <div className="room-gallery-stage">
+          <img src={photos[index]} alt={`${title}, photo ${index + 1} of ${photos.length}`} />
+          {photos.length > 1 ? (
+            <>
+              <button type="button" className="room-gallery-nav room-gallery-nav--prev" onClick={() => go(-1)} aria-label="Previous photo">
+                ‹
+              </button>
+              <button type="button" className="room-gallery-nav room-gallery-nav--next" onClick={() => go(1)} aria-label="Next photo">
+                ›
+              </button>
+            </>
+          ) : null}
+          <p className="room-gallery-count">
+            {index + 1} / {photos.length}
+          </p>
+        </div>
+        {photos.length > 1 ? (
+          <div className="room-gallery-thumbs" role="tablist" aria-label="Room photos">
+            {photos.map((src, i) => (
+              <button
+                key={src}
+                type="button"
+                role="tab"
+                aria-selected={i === index}
+                className={i === index ? 'is-active' : undefined}
+                onClick={() => setIndex(i)}
+              >
+                <img src={src} alt="" />
+              </button>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </div>,
+    document.body,
+  )
 }
 
 function StayBookingModal({ room, open, onClose }) {
@@ -318,9 +446,13 @@ export default function Stay() {
   const { isSignedIn } = useGuestAuth()
   const [bookingRoom, setBookingRoom] = useState(null)
   const [bookingKey, setBookingKey] = useState(0)
+  const [galleryRoom, setGalleryRoom] = useState(null)
   const pendingRoomRef = useRef(null)
 
-  const list = source === 'api' && rooms?.length ? rooms : STATIC_ROOMS
+  const list = useMemo(() => {
+    const raw = source === 'api' && rooms?.length ? rooms : STATIC_ROOMS
+    return raw.map(presentRoom).filter(Boolean)
+  }, [rooms, source])
 
   const openBooking = useCallback((room) => {
     setBookingKey((k) => k + 1)
@@ -369,13 +501,28 @@ export default function Stay() {
         <div className="stay-grid" ref={gridRef}>
           {list.map((room, index) => {
             const typeLabel = room.type || room.sku || 'Stay'
+            const photos = roomPhotos(room)
+            const banner = photos[0]
             return (
               <article className="stay-card" key={roomKey(room) || index}>
-                <div className="stay-card-media" aria-hidden="true">
+                <button
+                  type="button"
+                  className="stay-card-media"
+                  onClick={() => photos.length && setGalleryRoom(room)}
+                  disabled={!photos.length}
+                  aria-label={
+                    photos.length
+                      ? `View photos of ${room.name || room.roomName || 'this stay'}`
+                      : undefined
+                  }
+                >
+                  {banner ? (
+                    <img className="stay-card-photo" src={banner} alt="" />
+                  ) : null}
                   <span className="stay-card-index">
                     {String(index + 1).padStart(2, '0')}
                   </span>
-                </div>
+                </button>
                 <div className="stay-card-body">
                   <p className="stay-card-type">{typeLabel}</p>
                   <h3>{room.name || room.roomName || `Room ${index + 1}`}</h3>
@@ -402,6 +549,8 @@ export default function Stay() {
           })}
         </div>
       </div>
+
+      <RoomGallery room={galleryRoom} open={Boolean(galleryRoom)} onClose={() => setGalleryRoom(null)} />
 
       <StayBookingModal
         key={bookingKey}

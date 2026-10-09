@@ -864,19 +864,198 @@
 
 .stay-card-media {
   position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   aspect-ratio: 16 / 10;
   background: var(--color-ink);
+  border: none;
   border-bottom: 1px solid var(--color-sand);
+  border-radius: 0;
+  overflow: hidden;
+  cursor: pointer;
+  color: inherit;
+}
+
+.stay-card-media:disabled {
+  cursor: default;
+}
+
+.stay-card-media:focus-visible {
+  outline: 2px solid var(--color-sand);
+  outline-offset: -3px;
+}
+
+.stay-card-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1);
+  transition: transform 0.45s var(--ease-out);
+}
+
+.stay-card-media:hover .stay-card-photo,
+.stay-card-media:focus-visible .stay-card-photo {
+  transform: scale(1.04);
 }
 
 .stay-card-index {
   position: absolute;
-  left: 1rem;
-  bottom: 0.85rem;
+  left: 0.85rem;
+  bottom: 0.7rem;
+  z-index: 1;
   font-family: var(--font-display);
-  font-size: 2.25rem;
+  font-size: 1.65rem;
   line-height: 1;
   color: var(--color-sand);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+}
+
+.room-gallery-root {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  background: #1c1412;
+}
+
+.room-gallery {
+  width: 100%;
+  height: 100%;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  padding: max(0.9rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
+    max(0.9rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  background: #1c1412;
+  color: var(--color-sand);
+}
+
+.room-gallery-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.room-gallery-kicker {
+  margin: 0 0 0.2rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-sand);
+  opacity: 0.75;
+}
+
+.room-gallery-bar h2 {
+  margin: 0;
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+  color: var(--color-sand);
+  line-height: 1.2;
+}
+
+.room-gallery-close,
+.room-gallery-nav {
+  border: 1px solid rgba(241, 225, 148, 0.4);
+  background: rgba(241, 225, 148, 0.08);
+  color: var(--color-sand);
+  cursor: pointer;
+}
+
+.room-gallery-close {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.room-gallery-stage {
+  position: relative;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d0908;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.room-gallery-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+.room-gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 999px;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.room-gallery-nav--prev {
+  left: 0.6rem;
+}
+
+.room-gallery-nav--next {
+  right: 0.6rem;
+}
+
+.room-gallery-count {
+  position: absolute;
+  left: 50%;
+  bottom: 0.65rem;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(13, 9, 8, 0.7);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.room-gallery-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.15rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.room-gallery-thumbs button {
+  flex: 0 0 4.5rem;
+  height: 3.2rem;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 0.2rem;
+  overflow: hidden;
+  background: #0d0908;
+  cursor: pointer;
+}
+
+.room-gallery-thumbs button.is-active {
+  border-color: var(--color-sand);
+}
+
+.room-gallery-thumbs img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .stay-card-body {
@@ -1307,14 +1486,15 @@
   overflow: hidden;
   flex: 1 1 auto;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   min-height: 0;
   padding-bottom: clamp(1rem, 3vw, 1.75rem);
 }
 
 .gallery-track {
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  align-self: stretch;
   gap: 1.25rem;
   width: max-content;
   padding-inline: max(1.25rem, calc((100vw - var(--max-width)) / 2));
@@ -1322,12 +1502,11 @@
 }
 
 .gallery-frame {
-  --gallery-frame-max-h: calc(100svh - var(--nav-height) - 12.5rem);
   position: relative;
-  /* Width capped so height (via aspect-ratio) always fits fully in the pin viewport */
-  width: min(72vw, 26rem, calc(var(--gallery-frame-max-h) * 5 / 6));
+  align-self: stretch;
+  height: auto;
+  width: auto;
   aspect-ratio: 5 / 6;
-  max-height: var(--gallery-frame-max-h);
   overflow: hidden;
   flex-shrink: 0;
   border: 1px solid rgba(215, 224, 217, 0.14);
@@ -1336,14 +1515,14 @@
 
 .gallery-frame:nth-child(even) {
   aspect-ratio: 4 / 5;
-  width: min(72vw, 26rem, calc(var(--gallery-frame-max-h) * 4 / 5));
   margin-top: 0;
 }
 
 .gallery-frame .swatch {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   transition: transform 1.1s var(--ease-out);
 }
 
@@ -1351,19 +1530,23 @@
   transform: scale(1.05);
 }
 
-.gallery-frame figcaption {
-  position: absolute;
-  left: 1rem;
-  right: 1rem;
-  bottom: 1rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-mist);
+@media (min-width: 1100px) {
+  .gallery-track {
+    align-items: center;
+  }
+
+  .gallery-frame {
+    --gallery-frame-max-h: calc(100svh - var(--nav-height) - 12.5rem);
+    align-self: center;
+    width: min(72vw, 26rem, calc(var(--gallery-frame-max-h) * 5 / 6));
+    aspect-ratio: 5 / 6;
+    max-height: var(--gallery-frame-max-h);
+  }
+
+  .gallery-frame:nth-child(even) {
+    aspect-ratio: 4 / 5;
+    width: min(72vw, 26rem, calc(var(--gallery-frame-max-h) * 4 / 5));
+  }
 }
 
 .gallery.is-static .gallery-viewport {
@@ -1383,10 +1566,6 @@
 }
 
 @media (max-width: 640px) {
-  .gallery-frame {
-    --gallery-frame-max-h: calc(100svh - var(--nav-height) - 11.25rem);
-  }
-
   .gallery-head h2 {
     font-size: clamp(1.85rem, 8vw, 2.35rem);
   }

@@ -1,6 +1,6 @@
 /**
  * Static room catalog until Vara rooms API is live.
- * Each entry is one bookable unit (matches inventory: 2 A-frames, 1 dorm, 4 rooms).
+ * Each entry is one bookable unit (matches inventory: 2 A-frames, 1 dorm, 3 rooms).
  */
 export const STATIC_ROOMS = [
   {
@@ -70,22 +70,10 @@ export const STATIC_ROOMS = [
     type: 'Individual room',
     name: 'Individual room 3',
     capacityMin: 1,
-    capacityMax: 4,
-    capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
+    capacityMax: 2,
+    capacity: { minAdults: 1, maxAdults: 2, maxChildren: 0, maxTotal: 2 },
     summary:
-      'Quiet individual room for up to four - simple, restful, close to the river.',
-  },
-  {
-    id: 'room-4',
-    roomId: 'kushal-room-4',
-    sku: 'kushal-room',
-    type: 'Individual room',
-    name: 'Individual room 4',
-    capacityMin: 1,
-    capacityMax: 4,
-    capacity: { minAdults: 1, maxAdults: 4, maxChildren: 0, maxTotal: 4 },
-    summary:
-      'Quiet individual room for up to four - simple, restful, close to the river.',
+      'Quiet individual room for two - simple, restful, close to the river.',
   },
 ]
 
@@ -93,7 +81,7 @@ export const STATIC_ROOMS = [
 export const ROOM_INVENTORY_SUMMARY = [
   { label: 'A-frame cabins', units: 2, capacity: 'Up to 4 guests each' },
   { label: 'Dormitory', units: 1, capacity: '8-16 guests' },
-  { label: 'Individual rooms', units: 4, capacity: 'Up to 4 guests each' },
+  { label: 'Individual rooms', units: 3, capacity: 'Rooms 1–2 up to 4 guests; room 3 up to 2' },
 ]
 
 export const GALLERY_ITEMS = [

@@ -43,6 +43,11 @@ try {
     })),
   )
   console.log('Rooms seeded successfully', result)
+  const removed = await mongoose.connection.collection('rooms').deleteMany({
+    propertyId: PROPERTY_ID,
+    roomId: { $in: ['kushal-room-4', 'room-4'] },
+  })
+  console.log('deletedCount', removed.deletedCount)
 } catch (error) {
   console.error('Failed to seed rooms:', error)
   process.exitCode = 1

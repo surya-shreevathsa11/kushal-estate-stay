@@ -102,7 +102,12 @@ export default function Gallery() {
         ease: 'none',
         scrollTrigger: {
           trigger: section,
-          start: 'top top',
+          start: () => {
+            const laptop = window.matchMedia('(min-width: 1100px)').matches
+            if (!laptop) return 'top top'
+            const overflow = Math.max(0, section.offsetHeight - window.innerHeight)
+            return `top top-=${overflow}`
+          },
           end: () => `+=${getScroll()}`,
           pin: true,
           pinSpacing: true,
@@ -174,9 +179,6 @@ export default function Gallery() {
                 ) : (
                   <div className="swatch" style={{ backgroundColor: item.tone }} />
                 )}
-                <figcaption>
-                  <span>{item.label}</span>
-                </figcaption>
               </figure>
             ))}
           </div>
